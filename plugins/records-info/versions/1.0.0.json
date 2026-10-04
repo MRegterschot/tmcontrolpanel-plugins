@@ -1,0 +1,6 @@
+{
+  "url": "records-info-1.0.0.zip",
+  "sha256": "8512559c580e51603c9ef325de273318af6dcd867fd73f73c07e55ccb42d0c7a",
+  "publishedAt": "2026-10-04T19:00:00Z",
+  "changelog": "First version as a plugin package; previously built into GoControlPanel."
+}

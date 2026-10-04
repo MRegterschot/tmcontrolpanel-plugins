@@ -1,0 +1,6 @@
+{
+  "url": "match-1.0.0.zip",
+  "sha256": "5e88a81efe9f9aed21cc278f1dec95e7e2616295d62c16a8f89a81e4f8d9f12a",
+  "publishedAt": "2026-10-04T19:00:00Z",
+  "changelog": "First version as a plugin package; previously built into GoControlPanel."
+}

@@ -1,0 +1,6 @@
+{
+  "url": "ta-active-runs-1.0.0.zip",
+  "sha256": "f93e144eb48e6e221e89aa5cdb8d583e8a7628afcac16a56db4b744395bedb55",
+  "publishedAt": "2026-10-04T19:00:00Z",
+  "changelog": "First version as a plugin package; previously built into GoControlPanel."
+}

@@ -1,0 +1,6 @@
+{
+  "url": "live-round-1.0.0.zip",
+  "sha256": "13feec430d375dfae24397cee74328865163822b13b383e35488746d6f9f1d11",
+  "publishedAt": "2026-10-04T19:00:00Z",
+  "changelog": "First version as a plugin package; previously built into GoControlPanel."
+}

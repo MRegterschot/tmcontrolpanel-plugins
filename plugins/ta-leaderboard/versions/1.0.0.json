@@ -1,0 +1,6 @@
+{
+  "url": "ta-leaderboard-1.0.0.zip",
+  "sha256": "02f06a72eb1d8347bcfe0c01007d7e9992901ee7d1cb1301043bd7f31cec766c",
+  "publishedAt": "2026-10-04T19:00:00Z",
+  "changelog": "First version as a plugin package; previously built into GoControlPanel."
+}

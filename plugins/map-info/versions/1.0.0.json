@@ -1,0 +1,6 @@
+{
+  "url": "map-info-1.0.0.zip",
+  "sha256": "f283771051b7da0449cc32942ee6aa0260e3862dc0e929c723ff0884b0fe2a52",
+  "publishedAt": "2026-10-04T19:00:00Z",
+  "changelog": "First version as a plugin package; previously built into GoControlPanel."
+}

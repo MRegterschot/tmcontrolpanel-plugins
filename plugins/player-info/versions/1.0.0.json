@@ -1,0 +1,6 @@
+{
+  "url": "player-info-1.0.0.zip",
+  "sha256": "a8079c45791c93cee952f19292173dc0e686ddd78e07dec983dc294c274cba15",
+  "publishedAt": "2026-10-04T19:00:00Z",
+  "changelog": "First version as a plugin package; previously built into GoControlPanel."
+}

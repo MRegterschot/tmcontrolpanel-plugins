@@ -1,0 +1,6 @@
+{
+  "url": "admin-1.0.0.zip",
+  "sha256": "45a12910687e7faf7a44502cb05bfa49331ae42ed7c6b52ed4ba1ba6e3afc764",
+  "publishedAt": "2026-10-04T19:00:00Z",
+  "changelog": "First version as a plugin package; previously built into GoControlPanel."
+}

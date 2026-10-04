@@ -1,0 +1,6 @@
+{
+  "url": "live-ranking-1.0.0.zip",
+  "sha256": "2150e43fa9142f5587b546dd96813a6f9753446b990a09a28fa8aa6eee8a3c6b",
+  "publishedAt": "2026-10-04T19:00:00Z",
+  "changelog": "First version as a plugin package; previously built into GoControlPanel."
+}
