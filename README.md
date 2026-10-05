@@ -9,6 +9,24 @@ self-hosted ones included, reads the index published from this repository and in
 - **Packages are pinned.** Every version is pinned by sha256 and copied to the site, and panels only
   download from the site. A replaced release asset fails the build instead of reaching panels.
 
+## Create and develop a plugin
+
+Start with the source-backed [Hello example](plugins/hello), which demonstrates a
+command, event handler, clickable widget, storage and an SDK 2 config form.
+Its packaged behavior is tested in `test/hello-plugin.test.ts`.
+
+The [developer guide](wiki/Home.md) covers:
+
+- [Setting up the SDK and registry](wiki/Getting-Started.md)
+- [Creating a plugin](wiki/Creating-a-Plugin.md)
+- [Developing and testing](wiki/Developing-and-Testing.md)
+- [Config forms, tabs and selectors](wiki/Configuration-Forms.md)
+- [Publishing immutable versions](wiki/Publishing.md)
+
+The same pages are maintained for the [GitHub wiki](https://github.com/MRegterschot/tmcontrolpanel-plugins/wiki).
+Edit `wiki/` and run `bun run wiki:publish` to publish them. A new GitHub wiki needs
+its first page created on the website before that command can clone and push it.
+
 ## Publishing a plugin
 
 1. Build the package with the SDK (see the
@@ -88,7 +106,7 @@ To change a first-party plugin, edit its source/templates and increase the versi
 in `tmcp-plugin.json`. Then run:
 
 ```bash
-bun run build --publish
+bun run build --publish --plugins=<changed-slug>
 bun run check
 bun run site
 ```
@@ -115,7 +133,7 @@ pick-and-ban steps, conditional sections, and JSON/CSV import. Existing stored c
 uses the same format. API keys are secret fields and are excluded from exports.
 See the panel's `docs/plugin-sdk.md` for schema fields and limits.
 
-The five form-bearing packages use version `1.1.0` and SDK 2. Deploy a panel/service
+The first-party form-bearing packages target SDK 2. Deploy a panel/service
 that supports SDK 2 before merging these packages; then update pinned installs from
 the Plugins UI. SDK 1 versions and their immutable archives remain available.
 
@@ -136,7 +154,7 @@ registry on `http://127.0.0.1:4180/index.json` (`REGISTRY_PORT` overrides the po
 Set `MARKETPLACE_INDEX_URL=http://127.0.0.1:4180/index.json` in the panel's root `.env`
 and restart `bun run dev` and `bun run dev:gbx`. The development checkouts include
 SDK 2; there is no separate SDK server or npm installation. Update the five
-configurable plugins to `1.1.0` from the server's Plugins page.
+configurable plugins to their latest SDK 2 versions from the server's Plugins page.
 
 This loopback URL works when the panel and GBX service run directly on the same
 machine. Containers need an address reachable from inside their network instead.

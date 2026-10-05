@@ -306,6 +306,117 @@ main() {
 "
 `;
 
+exports[`TemplateRenderer > renders widgets/greeting 1`] = `
+"<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-model href="https://raw.githubusercontent.com/reaby/manialink-xsd/main/manialink_v3.xsd" ?>
+<manialink name="GCP:test-id" id="test-id" version="3">
+<frame id="widget" pos="1 2" z-index="10" hidden="1">
+<frame pos="0 0">
+  <quad pos="0 0" z-index="0" size="50 8" bgcolor="222" opacity="0.85" />
+  <label pos="2 -4" z-index="1" size="38 6" text="" valign="center" textsize="1.5" textcolor="FFF" />
+  <label pos="45 -4" z-index="1" size="8 6" text="Hi" halign="center" valign="center" textsize="1.5" textcolor="FFF" action="wave" focusareacolor1="0000" focusareacolor2="FFF3" />
+</frame>
+
+</frame>
+
+<script><!--
+#Include "MathLib" as ML
+#Include "TextLib" as TL
+#Include "TimeLib" as TimeLib
+#Include "ColorLib" as CL
+
+
+
+declare CMlFrame widget;
+--></script>
+
+<script><!--
+declare Vec2 widgetBasePosition;
+declare CMlFrame HS_Target;
+declare Boolean HS_Hidden;
+
+Void hs_hide(Integer duration) {
+  HS_Hidden = True;
+  declare Real x;
+  if (widgetBasePosition[0] < 0.0) {
+    x = (HS_Target.Size[0] * -HS_Target.RelativeScale) - 322.0;
+  } else {
+    x = 322.0;
+  }
+  AnimMgr.Add(HS_Target, "<frame pos='" ^ x ^ " " ^ widgetBasePosition[1] ^ "' />", duration, CAnimManager::EAnimManagerEasing::ExpInOut);
+}
+
+Void hs_show(Integer duration) {
+  HS_Hidden = False;
+  AnimMgr.Add(HS_Target, "<frame pos='" ^ widgetBasePosition[0] ^ " " ^ widgetBasePosition[1] ^ "' />", duration, CAnimManager::EAnimManagerEasing::CircOut);
+}
+
+Void hidescript() {
+  if (HS_Target == Null){
+    HS_Target <=> (Page.MainFrame.GetFirstChild("widget") as CMlFrame);
+  }
+
+  declare hideSpeed = 10;
+
+  if (InputPlayer == Null) {
+    if (HS_Hidden) {
+      hs_show(600);
+    }
+    return;
+  }
+
+  declare Boolean overHidespeed = ML::Abs(InputPlayer.Speed * 3.6) > hideSpeed;
+
+  if (overHidespeed && !HS_Hidden) {
+    hs_hide(1000);
+
+    while(InputPlayer.Speed * 3.6 > hideSpeed){
+      yield;
+      hidescript();
+    }
+  }
+  
+  if (!overHidespeed && HS_Hidden) {
+    sleep(1000);
+    hs_show(600);
+  }
+}
+--></script>
+<script><!--
+
+--></script>
+
+<script><!--
+main() {
+  widget <=> (Page.MainFrame.GetFirstChild("widget") as CMlFrame);
+  widgetBasePosition = widget.AbsolutePosition_V3;
+
+  sleep(300);
+  widget.Show();
+
+  
+
+  while (True) {
+    yield;
+
+    foreach(event in PendingEvents){
+      if(event.Control == Null) continue;
+
+      
+    }
+
+    
+
+      hidescript();
+  }
+}
+
+--></script>
+
+</manialink>
+"
+`;
+
 exports[`TemplateRenderer > renders widgets/live-ranking/live-ranking 1`] = `
 "<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <?xml-model href="https://raw.githubusercontent.com/reaby/manialink-xsd/main/manialink_v3.xsd" ?>

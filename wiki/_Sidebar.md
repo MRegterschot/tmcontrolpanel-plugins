@@ -1,0 +1,7 @@
+- [Home](https://github.com/MRegterschot/tmcontrolpanel-plugins/wiki)
+- [Getting started](https://github.com/MRegterschot/tmcontrolpanel-plugins/wiki/Getting-Started)
+- [Creating a plugin](https://github.com/MRegterschot/tmcontrolpanel-plugins/wiki/Creating-a-Plugin)
+- [Developing and testing](https://github.com/MRegterschot/tmcontrolpanel-plugins/wiki/Developing-and-Testing)
+- [Configuration forms](https://github.com/MRegterschot/tmcontrolpanel-plugins/wiki/Configuration-Forms)
+- [Publishing](https://github.com/MRegterschot/tmcontrolpanel-plugins/wiki/Publishing)
+- [Hello example source](https://github.com/MRegterschot/tmcontrolpanel-plugins/tree/main/plugins/hello)
