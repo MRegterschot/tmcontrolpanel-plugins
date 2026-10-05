@@ -1,4 +1,4 @@
-node_modules/
-.controlpanel/
+/node_modules
+/.controlpanel
 _site/
 plugins/*/dist/
