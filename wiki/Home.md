@@ -15,11 +15,3 @@ it demonstrates commands, events, clickable UI, persistent storage and a setting
 
 For the full host API, events and capabilities, see the
 [SDK reference](https://github.com/MRegterschot/gocontrolpanel/blob/refactor/monorepo-gbx-service/docs/plugin-sdk.md).
-
-## Maintaining this wiki
-
-The reviewed source of these pages is the registry's `wiki/` directory. Edit those
-files and run `bun run wiki:publish` to copy them to GitHub's wiki repository.
-That command preserves other wiki pages, commits changed documentation and pushes it.
-GitHub requires an initial wiki page to be created on its website before a wiki can
-be cloned or pushed. Local SDK/dependency links stay ignored and are never wiki content.
