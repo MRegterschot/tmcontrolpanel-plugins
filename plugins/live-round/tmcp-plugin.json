@@ -1,8 +1,8 @@
 {
   "slug": "live-round",
   "name": "Live Round",
-  "version": "1.0.1",
-  "sdk": 1,
+  "version": "1.1.0",
+  "sdk": 2,
   "description": "A widget that shows live timings of players during a round.",
   "author": "GoControlPanel",
   "license": "MIT",
@@ -17,5 +17,27 @@
     "ui",
     "records:read",
     "nadeo:read"
-  ]
+  ],
+  "configSchema": {
+    "type": "object",
+    "properties": {
+      "localRecordText": {
+        "type": "string",
+        "title": "Local Record Text",
+        "description": "Text shown for the local record (default: LR)."
+      },
+      "showPoints": {
+        "type": "boolean",
+        "title": "Show points",
+        "default": true,
+        "description": "Show points rather than a finish flag."
+      },
+      "rowCount": {
+        "type": "integer",
+        "title": "Row count",
+        "minimum": 1,
+        "default": 8
+      }
+    }
+  }
 }

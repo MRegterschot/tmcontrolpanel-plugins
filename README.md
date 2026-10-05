@@ -103,3 +103,40 @@ Merging to `main` publishes the index and packages to GitHub Pages. No panel rel
 is needed to publish plugin updates. The GBX service imports first-party packages
 from the registry at startup; existing installs keep their settings and version
 until an admin updates them through the panel.
+
+## Registry-owned config forms
+
+Configurable first-party plugins declare their forms in `configSchema` in each
+`plugins/<slug>/tmcp-plugin.json`. The panel renders the installed manifest, so form
+changes ship with plugin updates. No React form or per-plugin modal lives in the panel.
+
+Forms support nested lists, user selection, server maps/scripts, folder selection,
+pick-and-ban steps, conditional sections, and JSON/CSV import. Existing stored config
+uses the same format. API keys are secret fields and are excluded from exports.
+See the panel's `docs/plugin-sdk.md` for schema fields and limits.
+
+The five form-bearing packages use version `1.1.0` and SDK 2. Deploy a panel/service
+that supports SDK 2 before merging these packages; then update pinned installs from
+the Plugins UI. SDK 1 versions and their immutable archives remain available.
+
+To package only changed plugins while leaving published packages untouched:
+
+```bash
+bun run build --publish --plugins=ecm,live-round,records-info,player-info,match
+bun run check
+```
+
+Increase each changed manifest version before packaging. `--publish` creates local
+archives and descriptors; merging the registry PR publishes them to GitHub Pages.
+
+### Running SDK 2 packages locally
+
+Run `bun run dev` in this registry checkout. It rebuilds `_site` and serves the
+registry on `http://127.0.0.1:4180/index.json` (`REGISTRY_PORT` overrides the port).
+Set `MARKETPLACE_INDEX_URL=http://127.0.0.1:4180/index.json` in the panel's root `.env`
+and restart `bun run dev` and `bun run dev:gbx`. The development checkouts include
+SDK 2; there is no separate SDK server or npm installation. Update the five
+configurable plugins to `1.1.0` from the server's Plugins page.
+
+This loopback URL works when the panel and GBX service run directly on the same
+machine. Containers need an address reachable from inside their network instead.

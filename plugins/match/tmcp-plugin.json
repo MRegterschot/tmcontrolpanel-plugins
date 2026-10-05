@@ -1,8 +1,8 @@
 {
   "slug": "match",
   "name": "Match",
-  "version": "1.0.1",
-  "sdk": 1,
+  "version": "1.1.0",
+  "sdk": 2,
   "description": "Manages a match on the server: starting and stopping it, pausing, a pick and ban phase and a lobby.",
   "author": "GoControlPanel",
   "license": "MIT",
@@ -23,5 +23,176 @@
     "maps:write",
     "mode:control"
   ],
-  "helpText": "With this plugin you can easily manage matches, including pick and ban phases, pausing, and unpausing.\nCommands:\n/matchstart - Starts the match\n/matchstop - Stops the match\n/pause - Pauses the match\n/unpause - Unpauses the match\n/pickban - Starts the pick and ban phase\n/lobby - Sets the server to lobby state\n/setseeds <seed1> <seed2> ... - Sets the seeds for the pick and ban order"
+  "helpText": "With this plugin you can easily manage matches, including pick and ban phases, pausing, and unpausing.\nCommands:\n/matchstart - Starts the match\n/matchstop - Stops the match\n/pause - Pauses the match\n/unpause - Unpauses the match\n/pickban - Starts the pick and ban phase\n/lobby - Sets the server to lobby state\n/setseeds <seed1> <seed2> ... - Sets the seeds for the pick and ban order",
+  "configSchema": {
+    "type": "object",
+    "properties": {
+      "script": {
+        "type": "string",
+        "widget": "script",
+        "title": "Match Script"
+      },
+      "maps": {
+        "type": "array",
+        "title": "Maps",
+        "items": {
+          "type": "string",
+          "widget": "map",
+          "minLength": 1
+        },
+        "default": [],
+        "addLabel": "Add Map"
+      },
+      "admins": {
+        "type": "array",
+        "title": "Admins",
+        "items": {
+          "type": "string",
+          "widget": "user",
+          "minLength": 1
+        },
+        "addLabel": "Add User",
+        "defaultFrom": "current-user"
+      },
+      "pickAndBan": {
+        "type": "object",
+        "title": "Pick and Ban",
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type",
+            "enum": [
+              "player",
+              "team"
+            ],
+            "default": "player"
+          },
+          "choosePosition": {
+            "type": "boolean",
+            "title": "Choose Position",
+            "default": false,
+            "visibleWhen": {
+              "property": "type",
+              "equals": "player"
+            }
+          },
+          "timeout": {
+            "type": "number",
+            "title": "Turn Timeout (seconds)",
+            "minimum": 0,
+            "description": "Choose a random map when time expires. Empty or 0 disables the timeout."
+          },
+          "order": {
+            "type": "string",
+            "title": "Pick and Ban Order",
+            "widget": "order",
+            "maxItemsFrom": "maps"
+          },
+          "players": {
+            "type": "array",
+            "title": "Players",
+            "items": {
+              "type": "object",
+              "title": "Player",
+              "properties": {
+                "login": {
+                  "type": "string",
+                  "widget": "user",
+                  "minLength": 1,
+                  "title": "User"
+                },
+                "seed": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "title": "Seed"
+                }
+              },
+              "required": [
+                "login",
+                "seed"
+              ]
+            },
+            "default": [],
+            "addLabel": "Add Player",
+            "visibleWhen": {
+              "property": "type",
+              "equals": "player"
+            }
+          },
+          "teams": {
+            "type": "array",
+            "title": "Teams",
+            "items": {
+              "type": "object",
+              "title": "Team",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "title": "Team Name"
+                },
+                "seed": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "title": "Seed"
+                },
+                "players": {
+                  "type": "array",
+                  "title": "Players",
+                  "items": {
+                    "type": "string",
+                    "widget": "user",
+                    "minLength": 1
+                  },
+                  "default": [],
+                  "addLabel": "Add Player"
+                }
+              },
+              "required": [
+                "seed",
+                "players"
+              ]
+            },
+            "default": [],
+            "addLabel": "Add Team",
+            "visibleWhen": {
+              "property": "type",
+              "equals": "team"
+            },
+            "csv": {
+              "columns": {
+                "name": "Team"
+              },
+              "lists": {
+                "players": [
+                  "Player Login 1",
+                  "Player Login 2",
+                  "Player Login 3",
+                  "Player Login 4",
+                  "Player Login 5"
+                ]
+              },
+              "seed": "seed"
+            }
+          }
+        }
+      },
+      "lobby": {
+        "type": "object",
+        "title": "Lobby",
+        "properties": {
+          "script": {
+            "type": "string",
+            "widget": "script",
+            "title": "Lobby Script"
+          },
+          "map": {
+            "type": "string",
+            "widget": "map",
+            "minLength": 1,
+            "title": "Lobby Map"
+          }
+        }
+      }
+    }
+  }
 }

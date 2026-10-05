@@ -1,8 +1,8 @@
 {
   "slug": "player-info",
   "name": "Player Info",
-  "version": "1.0.1",
-  "sdk": 1,
+  "version": "1.1.0",
+  "sdk": 2,
   "description": "A widget that shows information about the spectated player. This includes their name, personal best and optionally device and camera.",
   "author": "GoControlPanel",
   "license": "MIT",
@@ -11,5 +11,54 @@
     "ui",
     "records:read",
     "nadeo:read"
-  ]
+  ],
+  "configSchema": {
+    "type": "object",
+    "properties": {
+      "playerInfos": {
+        "type": "array",
+        "title": "Players",
+        "items": {
+          "type": "object",
+          "title": "Player",
+          "properties": {
+            "login": {
+              "type": "string",
+              "widget": "user",
+              "minLength": 1,
+              "title": "User"
+            },
+            "device": {
+              "type": "string",
+              "title": "Device",
+              "enum": [
+                "Keyboard",
+                "Controller",
+                "Wheel",
+                "Mouse",
+                "Joystick"
+              ]
+            },
+            "camera": {
+              "type": "string",
+              "title": "Camera",
+              "enum": [
+                "Cam 1",
+                "Cam 2",
+                "Cam 3",
+                "Alt Cam 1",
+                "Alt Cam 2",
+                "Alt Cam 3"
+              ]
+            }
+          },
+          "required": [
+            "login"
+          ]
+        },
+        "default": [],
+        "addLabel": "Add User"
+      }
+    }
+  }
 }

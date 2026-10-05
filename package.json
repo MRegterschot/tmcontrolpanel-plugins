@@ -8,6 +8,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "check": "bun run typecheck && bun run test && bun run build && bun .controlpanel/packages/plugin-sdk/src/cli/main.ts registry --registry . --check",
-    "site": "bun .controlpanel/packages/plugin-sdk/src/cli/main.ts registry --registry . --out _site"
+    "site": "bun .controlpanel/packages/plugin-sdk/src/cli/main.ts registry --registry . --out _site",
+    "dev": "bun run site && bun scripts/serve.ts"
   }
 }

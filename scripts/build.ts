@@ -10,9 +10,14 @@ import { buildPlugin, packPlugin } from "@tmcontrolpanel/plugin-sdk/cli";
 
 const root = resolve("plugins");
 const publish = process.argv.includes("--publish");
+const selected = process.argv
+  .find((arg) => arg.startsWith("--plugins="))
+  ?.slice("--plugins=".length)
+  .split(",");
 for (const entry of readdirSync(root, { withFileTypes: true }).sort((a, b) =>
   a.name.localeCompare(b.name),
 )) {
+  if (selected && !selected.includes(entry.name)) continue;
   const dir = join(root, entry.name);
   if (!entry.isDirectory() || !existsSync(join(dir, "tmcp-plugin.json")))
     continue;

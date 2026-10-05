@@ -1,8 +1,8 @@
 {
   "slug": "ecm",
   "name": "eCircuitMania",
-  "version": "1.0.1",
-  "sdk": 1,
+  "version": "1.1.0",
+  "sdk": 2,
   "description": "Sends rounds and finishes to eCircuitMania while a match is being recorded.",
   "author": "GoControlPanel",
   "license": "MIT",
@@ -14,5 +14,33 @@
     "ui",
     "http:us-central1-fantasy-trackmania.cloudfunctions.net"
   ],
-  "helpText": "This plugin sends rounds and finish data to eCircuitMania.\nCommands:\n/ecm - Opens the eCircuitMania window"
+  "helpText": "This plugin sends rounds and finish data to eCircuitMania.\nCommands:\n/ecm - Opens the eCircuitMania window",
+  "configSchema": {
+    "type": "object",
+    "properties": {
+      "apiKey": {
+        "type": "string",
+        "title": "API Key",
+        "secret": true,
+        "format": "underscore-pair",
+        "description": "Your eCircuitMania match ID and auth token, separated by an underscore."
+      },
+      "isRecording": {
+        "type": "boolean",
+        "title": "Record results",
+        "default": false
+      },
+      "editors": {
+        "type": "array",
+        "title": "Editors",
+        "items": {
+          "type": "string",
+          "widget": "user",
+          "minLength": 1
+        },
+        "addLabel": "Add User",
+        "defaultFrom": "current-user"
+      }
+    }
+  }
 }
