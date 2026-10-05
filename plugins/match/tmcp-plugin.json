@@ -1,7 +1,7 @@
 {
   "slug": "match",
   "name": "Match",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "sdk": 2,
   "description": "Manages a match on the server: starting and stopping it, pausing, a pick and ban phase and a lobby.",
   "author": "GoControlPanel",
@@ -193,6 +193,31 @@
           }
         }
       }
-    }
+    },
+    "tabs": [
+      {
+        "id": "general",
+        "title": "General",
+        "properties": [
+          "script",
+          "maps",
+          "admins"
+        ]
+      },
+      {
+        "id": "pick-and-ban",
+        "title": "Pick and Ban",
+        "properties": [
+          "pickAndBan"
+        ]
+      },
+      {
+        "id": "lobby",
+        "title": "Lobby",
+        "properties": [
+          "lobby"
+        ]
+      }
+    ]
   }
 }

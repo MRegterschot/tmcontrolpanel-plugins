@@ -16,6 +16,17 @@ function schema(slug: string) {
 }
 
 describe("registry-owned config forms", () => {
+  it("groups match settings into General, Pick and Ban, and Lobby tabs", () => {
+    expect(schema("match").tabs).toEqual([
+      {
+        id: "general",
+        title: "General",
+        properties: ["script", "maps", "admins"],
+      },
+      { id: "pick-and-ban", title: "Pick and Ban", properties: ["pickAndBan"] },
+      { id: "lobby", title: "Lobby", properties: ["lobby"] },
+    ]);
+  });
   it.each(["ecm", "live-round", "records-info", "player-info", "match"])(
     "ships a valid form for %s",
     (slug) => {
