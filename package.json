@@ -1,0 +1,13 @@
+{
+  "name": "tmcontrolpanel-plugins",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "setup": "bun scripts/setup.ts",
+    "build": "bun scripts/build.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "check": "bun run typecheck && bun run test && bun run build && bun .controlpanel/packages/plugin-sdk/src/cli/main.ts registry --registry . --check",
+    "site": "bun .controlpanel/packages/plugin-sdk/src/cli/main.ts registry --registry . --out _site"
+  }
+}

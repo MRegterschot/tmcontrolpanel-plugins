@@ -1,0 +1,10 @@
+{
+  "extends": "./.controlpanel/tsconfig.base.json",
+  "include": [
+    "plugins/*/src",
+    "scripts",
+    "test",
+    "vitest.config.ts",
+    ".controlpanel/apps/gbx-service/src/types"
+  ]
+}

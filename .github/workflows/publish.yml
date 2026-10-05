@@ -23,18 +23,31 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: MRegterschot/gocontrolpanel
-          ref: ${{ vars.GOCONTROLPANEL_REF || 'master' }}
-          path: .gocontrolpanel
+          ref: ${{ vars.TMCONTROLPANEL_REF || 'refactor/monorepo-gbx-service' }}
+          path: .controlpanel
 
       - uses: oven-sh/setup-bun@v2
 
       - name: Install the plugin SDK
-        working-directory: .gocontrolpanel
+        working-directory: .controlpanel
         run: bun install --frozen-lockfile
+
+      - name: Generate the database client for the sandbox test harness
+        working-directory: .controlpanel
+        run: DB=mysql bun run generate
+
+      - name: Link registry tooling to the SDK checkout
+        run: bun run setup
+
+      - name: Typecheck and test first-party plugins
+        run: bun run typecheck && bun run test
+
+      - name: Verify first-party source matches published packages
+        run: bun run build
 
       # index.json plus a copy of every package, README and icon
       - name: Build the site
-        working-directory: .gocontrolpanel
+        working-directory: .controlpanel
         run: bun packages/plugin-sdk/src/cli/main.ts registry --registry "$GITHUB_WORKSPACE" --out "$GITHUB_WORKSPACE/_site"
 
       - uses: actions/upload-pages-artifact@v3

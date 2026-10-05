@@ -60,3 +60,46 @@ admins why, and refuse to install it again. To take down a whole plugin, yank ev
 ## Reporting a plugin
 
 Use the *Report a plugin* issue form. Panels link to it from every plugin page.
+
+## Developing first-party plugins
+
+All ten first-party plugins live here in `plugins/<slug>` alongside their registry
+metadata and immutable version archives. The panel repository contains the SDK,
+sandbox runtime, and management/settings UI.
+
+Clone the panel into `.controlpanel` (or link an existing checkout there), check out
+`refactor/monorepo-gbx-service` or a later branch containing the SDK, and run:
+
+```bash
+cd .controlpanel
+bun install --frozen-lockfile
+DB=mysql bun run generate
+cd ..
+bun run setup
+bun run check
+```
+
+`setup` links this repository's tooling dependencies to the panel checkout. CI does
+the same with `TMCONTROLPANEL_REF`, which selects the panel branch to test against.
+The registry owns plugin unit tests, sandbox behavior tests, and template snapshots;
+its tests use the generic sandbox harness from the panel checkout.
+
+To change a first-party plugin, edit its source/templates and increase the version
+in `tmcp-plugin.json`. Then run:
+
+```bash
+bun run build --publish
+bun run check
+bun run site
+```
+
+`--publish` writes a new archive and checksum descriptor under `versions/`, ready
+for review. It refuses to overwrite existing descriptors. The normal build verifies
+that current source matches the published checksum. Never replace an existing
+version archive: panels retain their copies, and registry versions are immutable.
+
+Open a pull request with the source, tests, and new package/version descriptor.
+Merging to `main` publishes the index and packages to GitHub Pages. No panel release
+is needed to publish plugin updates. The GBX service imports first-party packages
+from the registry at startup; existing installs keep their settings and version
+until an admin updates them through the panel.
