@@ -7,6 +7,7 @@ import {
 } from "node:fs";
 import { join, resolve } from "node:path";
 import { buildPlugin, packPlugin } from "@tmcontrolpanel/plugin-sdk/cli";
+import { matchesPublishedSource } from "./archive";
 
 const root = resolve("plugins");
 const publish = process.argv.includes("--publish");
@@ -63,7 +64,14 @@ for (const entry of readdirSync(root, { withFileTypes: true }).sort((a, b) =>
   } else if (existsSync(versionFile)) {
     // Historical packages stay immutable. A source change needs a new version.
     const version = JSON.parse(readFileSync(versionFile, "utf8"));
-    if (version.sha256 !== result.pkg.sha256) {
+    const published = readFileSync(
+      join(
+        dir,
+        "versions",
+        `${result.pkg.manifest.slug}-${result.pkg.manifest.version}.zip`,
+      ),
+    );
+    if (!matchesPublishedSource(published, result.bytes, version.sha256)) {
       throw new Error(
         `${entry.name}: source differs from published ${result.pkg.manifest.version}; raise its version`,
       );
