@@ -1,7 +1,7 @@
 {
   "slug": "ecm",
   "name": "eCircuitMania",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "sdk": 2,
   "description": "Sends rounds and finishes to eCircuitMania while a match is being recorded.",
   "author": "GoControlPanel",
@@ -21,7 +21,6 @@
       "apiKey": {
         "type": "string",
         "title": "API Key",
-        "secret": true,
         "format": "underscore-pair",
         "description": "Your eCircuitMania match ID and auth token, separated by an underscore."
       },

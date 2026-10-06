@@ -130,7 +130,8 @@ changes ship with plugin updates. No React form or per-plugin modal lives in the
 
 Forms support nested lists, user selection, server maps/scripts, folder selection,
 pick-and-ban steps, conditional sections, and JSON/CSV import. Existing stored config
-uses the same format. API keys are secret fields and are excluded from exports.
+uses the same format. The ECM API key is an ordinary editable string included in config exports. Fields
+explicitly marked `secret` in other plugin schemas are masked and excluded from exports.
 See the panel's `docs/plugin-sdk.md` for schema fields and limits.
 
 The first-party form-bearing packages target SDK 2. Deploy a panel/service
