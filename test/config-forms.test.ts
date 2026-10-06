@@ -82,13 +82,13 @@ describe("registry-owned config forms", () => {
       validatePluginConfig(schema("match"), { ...config, maps: [] }).success,
     ).toBe(false);
   });
-  it("keeps API keys out of displayed and exported config", () => {
+  it("keeps the ECM API key visible in displayed and exported config", () => {
     expect(
       maskSecrets(schema("ecm"), {
-        apiKey: "match_secret",
+        apiKey: "match_token",
         editors: ["login"],
       }),
-    ).toEqual({ config: { editors: ["login"] }, setSecrets: ["apiKey"] });
+    ).toEqual({ config: { apiKey: "match_token", editors: ["login"] }, setSecrets: [] });
     expect(validatePluginConfig(schema("ecm"), { apiKey: "bad" }).success).toBe(
       false,
     );
