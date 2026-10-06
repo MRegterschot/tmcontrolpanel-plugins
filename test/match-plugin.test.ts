@@ -21,6 +21,13 @@ const told = (h: Awaited<ReturnType<typeof setup>>, login: string) =>
 const broadcast = (h: Awaited<ReturnType<typeof setup>>) =>
   h.session.callsTo("ChatSendServerMessage").map((c) => c.params[0]);
 
+// What the plugin emits for others, as the service's event bus sees it
+function emitted(h: Awaited<ReturnType<typeof setup>>) {
+  const events: { plugin: string; name: string; payload: any }[] = [];
+  h.runtime.events.on("pluginEvent", (event) => void events.push(event));
+  return events;
+}
+
 describe("match plugin", () => {
   it("reads settings saved by older forms", () => {
     expect(normalizeConfig({ pickAndBan: { type: "player", timeout: "30" } }).pickAndBan).toEqual({
@@ -92,5 +99,58 @@ describe("match plugin", () => {
     expect(told(h, "admin")).toContain("Invalid seed(s) provided, please provide valid numbers");
     await h.chat("admin", "/setseeds 2 1");
     expect(told(h, "admin")).toContain("Seeds for pick and ban order have been set to: 2, 1");
+  });
+
+  it("emits the pick and ban for other plugins", async () => {
+    const h = await setup();
+    const events = emitted(h);
+    await h.chat("admin", "/pickban");
+    await h.click("p1", "match:match-pickban-action-map-a-uid");
+    await h.click("p2", "match:match-pickban-action-map-b-uid");
+    await h.clock.advance(10_000);
+
+    expect(events.every((e) => e.plugin === "match")).toBe(true);
+    const mapA = { uid: "map-a-uid", name: expect.any(String), filename: "Campaigns/MapA.Map.Gbx" };
+    const mapB = { uid: "map-b-uid", name: expect.any(String), filename: "Campaigns/MapB.Map.Gbx" };
+    expect(events.map((e) => e.name)).toEqual([
+      "pickBanStarted",
+      "pickBanTurn",
+      "pickBanMapBanned",
+      "pickBanTurn",
+      "pickBanMapPicked",
+      "pickBanCompleted",
+    ]);
+    expect(events[0].payload).toMatchObject({ mode: "player", maps: [mapA, mapB] });
+    expect(events[1].payload).toMatchObject({ action: "ban", login: "p1" });
+    expect(events[2].payload).toEqual({ map: mapA, by: "Nick p1", timedOut: false });
+    expect(events[4].payload).toEqual({ map: mapB, by: "Nick p2", position: 1, timedOut: false });
+    expect(events[5].payload).toEqual({
+      mode: "player",
+      picked: [{ ...mapB, position: 1, by: "Nick p2" }],
+      banned: [{ ...mapA, by: "Nick p1" }],
+    });
+  });
+
+  it("marks timed out picks and bans", async () => {
+    const h = await setup({ pickAndBan: { ...config.pickAndBan, timeout: 30 } });
+    const events = emitted(h);
+    await h.chat("admin", "/pickban");
+    await h.clock.advance(30_000);
+    const banned = events.find((e) => e.name === "pickBanMapBanned");
+    expect(banned?.payload).toMatchObject({ by: "Nick p1", timedOut: true });
+  });
+
+  it("emits match start, stop and pause", async () => {
+    const h = await setup();
+    const events = emitted(h);
+    await h.chat("admin", "/matchstart");
+    h.runtime.state.liveInfo.pauseAvailable = true;
+    await h.chat("admin", "/pause");
+    await h.chat("admin", "/matchstop");
+    expect(events.map((e) => [e.name, e.payload])).toEqual([
+      ["started", { script: null }],
+      ["pauseChanged", { paused: true, login: "admin" }],
+      ["stopped", null],
+    ]);
   });
 });

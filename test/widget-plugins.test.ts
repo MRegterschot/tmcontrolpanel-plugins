@@ -26,6 +26,13 @@ async function withPackage(slug: string, options: HarnessOptions & { config?: un
 
 const page = (slug: string, id: string) => `plg.${slug}.${id}`;
 
+// What the plugins emit for others, as the service's event bus sees it
+function emitted(h: Awaited<ReturnType<typeof withPackage>>) {
+  const events: { plugin: string; name: string; payload: unknown }[] = [];
+  h.runtime.events.on("pluginEvent", (event) => void events.push(event));
+  return events;
+}
+
 describe("ta-leaderboard", () => {
   it("ranks finished players before players without a time", () => {
     const ranked = rankLeaderboard([
@@ -105,6 +112,20 @@ describe("admin", () => {
     expect(h.session.callsTo("ChatSendServerMessageToLogin").at(-1)?.params).toEqual(["Admins have been notified", "p1"]);
     expect(h.session.lastManialink(page("admin", "notify-admin-widget"))).toContain('action="admin:notify-admin-action"');
   });
+
+  it("emits helpRequested for other plugins", async () => {
+    const h = await withPackage("admin", { players: [player("p1")] });
+    const events = emitted(h);
+    await h.chat("p1", "/admin server is lagging");
+    await new Promise((r) => setImmediate(r));
+    expect(events).toEqual([
+      {
+        plugin: "admin",
+        name: "helpRequested",
+        payload: { login: "p1", nickName: "Nick p1", description: "server is lagging" },
+      },
+    ]);
+  });
 });
 
 describe("records-info", () => {
@@ -132,6 +153,28 @@ describe("records-info", () => {
     await h.script("Trackmania.WarmUp.End");
     await h.script("Trackmania.Event.WayPoint", finish("p1", 30000));
     expect(records().localRecord).toEqual({ time: 30000, nickName: "Nick p1" });
+  });
+
+  it("emits new local and world records", async () => {
+    const h = await withPackage("records-info", { players: [player("p1")], connect: false });
+    h.records.localRecord = { login: "p2", time: 41000, nickName: "Local Hero" };
+    h.nadeo.worldRecords.set("map-a-uid", { accountId: "wr-acc", score: 39000 });
+    await h.runtime.start();
+    await new Promise((r) => setImmediate(r));
+    const events = emitted(h);
+
+    // Beats the local record only
+    await h.script("Trackmania.Event.WayPoint", finish("p1", 40000));
+    // Beats both
+    await h.script("Trackmania.Event.WayPoint", finish("p1", 38000));
+    await new Promise((r) => setImmediate(r));
+
+    const base = { mapUid: "map-a-uid", login: "p1", nickName: "Nick p1" };
+    expect(events.map((e) => [e.name, e.payload])).toEqual([
+      ["newLocalRecord", { ...base, time: 40000, previousTime: 41000 }],
+      ["newLocalRecord", { ...base, time: 38000, previousTime: 40000 }],
+      ["newWorldRecord", { ...base, time: 38000, previousTime: 39000 }],
+    ]);
   });
 
   it("keeps working when Nadeo is down", async () => {

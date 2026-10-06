@@ -1,7 +1,7 @@
 {
   "slug": "match",
   "name": "Match",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "sdk": 2,
   "description": "Manages a match on the server: starting and stopping it, pausing, a pick and ban phase and a lobby.",
   "author": "GoControlPanel",

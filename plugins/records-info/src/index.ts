@@ -65,9 +65,22 @@ class RecordsInfoPlugin {
 
     const player = await this.ctx.players.get(waypoint.login).catch(() => null);
     const record = { time: waypoint.racetime, nickName: player?.nickName || "-" };
+    const previous = { local: local.time || null, world: this.records.worldRecord.time || null };
     if (beatLocal) this.records.localRecord = record;
     if (beatWorld) this.records.worldRecord = { ...record };
     this.render();
+
+    // Older panels have no ctx.emit; the widget still works there
+    const announce = (name: string, previousTime: number | null) =>
+      this.ctx.emit?.(name, {
+        mapUid: this.ctx.live.activeMapUid,
+        login: waypoint.login,
+        nickName: record.nickName,
+        time: record.time,
+        previousTime,
+      });
+    if (beatLocal) announce("newLocalRecord", previous.local);
+    if (beatWorld) announce("newWorldRecord", previous.world);
   }
 
   private async refresh() {

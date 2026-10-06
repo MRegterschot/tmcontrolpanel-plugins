@@ -54,6 +54,15 @@ type MatchState = "not_started" | "pickban" | "ready" | "in_progress";
 const PICKBAN_DONE_DELAY_MS = 10_000;
 const RANDOM_STEP_DELAY_MS = 1_000;
 
+// A map as other plugins see it in the pick and ban events
+interface EventMap {
+  uid: string;
+  name: string;
+  filename: string;
+}
+
+const eventMap = ({ uid, name, filename }: PickBanMap): EventMap => ({ uid, name, filename });
+
 function capitalize(text: string): string {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
@@ -102,6 +111,33 @@ export class MatchPlugin {
 
   private config(): MatchConfig {
     return normalizeConfig(this.ctx.config());
+  }
+
+  // Older panels have no ctx.emit; the match still runs there
+  private emit(name: string, payload?: unknown) {
+    this.ctx.emit?.(name, payload);
+  }
+
+  private emitTurn() {
+    const turn = this.pickBan?.currentTurn;
+    if (!turn) return;
+    this.emit("pickBanTurn", {
+      action: turn.action,
+      login: turn.login,
+      players: turn.players,
+      nickName: turn.nickName,
+      timeoutSeconds: turn.timeoutSeconds ?? null,
+    });
+  }
+
+  // The map and who took it; picks carry their final position
+  private emitSelection(action: "pick" | "ban", map: PickBanMap, by: string, timedOut = false) {
+    this.emit(action === "pick" ? "pickBanMapPicked" : "pickBanMapBanned", {
+      map: eventMap(map),
+      by,
+      ...(action === "pick" ? { position: map.index } : {}),
+      timedOut,
+    });
   }
 
   private tell(login: string, message: string) {
@@ -165,6 +201,7 @@ export class MatchPlugin {
 
     if (await this.goToFirstMap(login, "Failed to start the match")) {
       this.state = "in_progress";
+      this.emit("started", { script: config?.script ?? null });
     }
 
     await this.attempt(login, "Failed to fetch map list", async () => {
@@ -181,6 +218,7 @@ export class MatchPlugin {
     this.widget.destroy();
     this.clearTurnTimeout();
     this.state = "not_started";
+    this.emit("stopped");
     await this.ctx.chat.send("Match stopped");
     await this.applyLobby(login);
   }
@@ -199,6 +237,7 @@ export class MatchPlugin {
     await this.attempt(login, `Failed to ${verb} the match`, async () => {
       const player = this.ctx.live.findActivePlayer(login);
       await this.ctx.server.setPaused(pause);
+      this.emit("pauseChanged", { paused: pause, login });
       await this.ctx.chat.send(
         `Match ${pause ? "paused" : "unpaused"} by ${player?.nickName || login}`,
       );
@@ -234,6 +273,12 @@ export class MatchPlugin {
     this.state = "pickban";
     this.startTurnTimer();
     this.renderPickBan(true);
+    this.emit("pickBanStarted", {
+      mode: config.type,
+      order,
+      maps: this.pickBan.maps.map(eventMap),
+    });
+    this.emitTurn();
 
     await this.ctx.chat.send(
       `Pick and ban phase started\n${order
@@ -280,6 +325,7 @@ export class MatchPlugin {
     if (!uid || !pickBan) return;
 
     const activeLogins = this.ctx.live.activePlayers.map((p) => p.login);
+    const turn = pickBan.currentTurn;
     const result = pickBan.select(answer.login, uid, activeLogins);
 
     switch (result.kind) {
@@ -295,6 +341,9 @@ export class MatchPlugin {
       case "choosePosition":
         return this.openPositionWindow(answer.login);
       case "applied":
+        if (turn && turn.action !== "random") {
+          this.emitSelection(turn.action, result.map, turn.nickName);
+        }
         return this.nextTurn();
     }
   }
@@ -304,7 +353,9 @@ export class MatchPlugin {
     const turn = pickBan?.currentTurn;
     if (!pickBan || !turn || turn.login !== answer.login || isNaN(position)) return;
 
-    if (!pickBan.choosePositionFor(position)) return;
+    const map = pickBan.choosePositionFor(position);
+    if (!map) return;
+    this.emitSelection("pick", map, turn.nickName);
     this.closePositionWindow(turn.login);
     await this.nextTurn();
   }
@@ -316,6 +367,7 @@ export class MatchPlugin {
     pickBan.advance();
     this.startTurnTimer();
     this.renderPickBan();
+    this.emitTurn();
     await this.runAutomaticSteps();
   }
 
@@ -326,22 +378,40 @@ export class MatchPlugin {
 
     while (!pickBan.isDone && pickBan.currentTurn?.action === "random") {
       await this.ctx.sleep(RANDOM_STEP_DELAY_MS);
-      if (!pickBan.pickRandom()) {
+      const map = pickBan.pickRandom();
+      if (!map) {
         await this.ctx.chat.send("Failed to handle random pick and ban, no available maps left");
         return;
       }
+      this.emitSelection("pick", map, "random");
       pickBan.advance();
       this.startTurnTimer();
       this.renderPickBan();
+      this.emitTurn();
     }
 
     if (pickBan.isDone) {
       this.clearTurnTimeout();
       await this.ctx.sleep(PICKBAN_DONE_DELAY_MS);
+      // Stopped or restarted while the result was on screen
+      if (this.state !== "pickban" || this.pickBan !== pickBan) return;
       this.state = "ready";
+      this.emitCompleted(pickBan);
       await this.ctx.chat.send("Pick and ban phase completed, match is ready to start");
       this.widget.destroy();
     }
+  }
+
+  // The final result: picked maps in match order, and the bans
+  private emitCompleted(pickBan: PickBan) {
+    const picked = pickBan.maps
+      .filter((map) => map.pickedBy)
+      .sort((a, b) => a.index - b.index)
+      .map((map) => ({ ...eventMap(map), position: map.index, by: map.pickedBy }));
+    const banned = pickBan.maps
+      .filter((map) => map.bannedBy)
+      .map((map) => ({ ...eventMap(map), by: map.bannedBy }));
+    this.emit("pickBanCompleted", { mode: pickBan.mode, picked, banned });
   }
 
   private startTurnTimer() {
@@ -375,6 +445,7 @@ export class MatchPlugin {
       return;
     }
 
+    if (turn.action !== "random") this.emitSelection(turn.action, map, turn.nickName, true);
     await this.ctx.chat.send(
       `${turn.nickName || "The current player"} ran out of time, ${map.name} was randomly ${
         turn.action === "ban" ? "banned" : "picked"

@@ -27,6 +27,12 @@ class NotifyAdminPlugin {
       `${player.nickName} asked for help on server ${this.ctx.serverName()}`,
       description,
     );
+    // Older panels have no ctx.emit; the notification still goes out there
+    this.ctx.emit?.("helpRequested", {
+      login,
+      nickName: player.nickName,
+      description: description ?? null,
+    });
     await this.ctx.chat.sendTo(login, "Admins have been notified");
   }
 }

@@ -1,7 +1,7 @@
 {
   "slug": "admin",
   "name": "Admin Help",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "sdk": 1,
   "description": "A widget and admin command to notify a server admin. The command is '/admin <message>'.",
   "author": "GoControlPanel",
