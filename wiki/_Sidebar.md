@@ -1,6 +1,7 @@
 - [Home](https://github.com/MRegterschot/tmcontrolpanel-plugins/wiki)
 - [Getting started](https://github.com/MRegterschot/tmcontrolpanel-plugins/wiki/Getting-Started)
 - [Creating a plugin](https://github.com/MRegterschot/tmcontrolpanel-plugins/wiki/Creating-a-Plugin)
+- [Developing plugins with AI](https://github.com/MRegterschot/tmcontrolpanel-plugins/wiki/Developing-with-AI)
 - [Developing and testing](https://github.com/MRegterschot/tmcontrolpanel-plugins/wiki/Developing-and-Testing)
 - [Configuration forms](https://github.com/MRegterschot/tmcontrolpanel-plugins/wiki/Configuration-Forms)
 - [Publishing](https://github.com/MRegterschot/tmcontrolpanel-plugins/wiki/Publishing)

@@ -19,9 +19,12 @@ The [developer guide](wiki/Home.md) covers:
 
 - [Setting up the SDK and registry](wiki/Getting-Started.md)
 - [Creating a plugin](wiki/Creating-a-Plugin.md)
+- [Developing plugins with AI](wiki/Developing-with-AI.md)
 - [Developing and testing](wiki/Developing-and-Testing.md)
 - [Config forms, tabs and selectors](wiki/Configuration-Forms.md)
 - [Publishing immutable versions](wiki/Publishing.md)
+
+AI coding assistants should read [AGENTS.md](AGENTS.md) before changing plugins.
 
 The same pages are maintained for the [GitHub wiki](https://github.com/MRegterschot/tmcontrolpanel-plugins/wiki).
 Edit `wiki/` and run `bun run wiki:publish` to publish them. A new GitHub wiki needs

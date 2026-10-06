@@ -13,5 +13,8 @@ it demonstrates commands, events, clickable UI, persistent storage and a setting
 4. [Configuration forms](https://github.com/MRegterschot/tmcontrolpanel-plugins/wiki/Configuration-Forms): describe fields, tabs, selectors and imports in the manifest.
 5. [Publishing](https://github.com/MRegterschot/tmcontrolpanel-plugins/wiki/Publishing): submit a reviewed, immutable plugin version.
 
+For example prompts and an AI-assisted workflow, see
+[Developing plugins with AI](https://github.com/MRegterschot/tmcontrolpanel-plugins/wiki/Developing-with-AI).
+
 For the full host API, events and capabilities, see the
 [SDK reference](https://github.com/MRegterschot/gocontrolpanel/blob/refactor/monorepo-gbx-service/docs/plugin-sdk.md).
