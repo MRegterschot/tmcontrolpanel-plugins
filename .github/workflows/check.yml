@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: MRegterschot/gocontrolpanel
-          ref: ${{ vars.TMCONTROLPANEL_REF || 'refactor/monorepo-gbx-service' }}
+          ref: ${{ vars.TMCONTROLPANEL_REF || 'release' }}
           path: .controlpanel
 
       - uses: oven-sh/setup-bun@v2
