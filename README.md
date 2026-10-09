@@ -12,7 +12,7 @@ self-hosted ones included, reads the index published from this repository and in
 ## Create and develop a plugin
 
 Start with the source-backed [Hello example](plugins/hello), which demonstrates a
-command, event handler, clickable widget, storage and an SDK 2 config form.
+command, event handler, themed clickable widget, storage and a config form.
 Its packaged behavior is tested in `test/hello-plugin.test.ts`.
 
 The [developer guide](wiki/Home.md) covers:
@@ -141,6 +141,11 @@ The first-party form-bearing packages target SDK 2. Deploy a panel/service
 that supports SDK 2 before merging these packages; then update pinned installs from
 the Plugins UI. SDK 1 versions and their immutable archives remain available.
 
+All first-party packages now target SDK 4 and take their foreground, background and
+muted colors from the panel theme (`{{@theme.quad.*}}` for quads and
+`{{@theme.label.*}}` for labels in templates). Deploy a panel/service
+with SDK 4 before merging them; older panels keep offering the SDK 1/2 versions.
+
 To package only changed plugins while leaving published packages untouched:
 
 ```bash
@@ -151,14 +156,14 @@ bun run check
 Increase each changed manifest version before packaging. `--publish` creates local
 archives and descriptors; merging the registry PR publishes them to GitHub Pages.
 
-### Running SDK 2 packages locally
+### Running SDK 4 packages locally
 
 Run `bun run dev` in this registry checkout. It rebuilds `_site` and serves the
 registry on `http://127.0.0.1:4180/index.json` (`REGISTRY_PORT` overrides the port).
 Set `MARKETPLACE_INDEX_URL=http://127.0.0.1:4180/index.json` in the panel's root `.env`
 and restart `bun run dev` and `bun run dev:gbx`. The development checkouts include
-SDK 2; there is no separate SDK server or npm installation. Update the five
-configurable plugins to their latest SDK 2 versions from the server's Plugins page.
+SDK 4; there is no separate SDK server or npm installation. Update the five
+configurable plugins to their latest SDK 4 versions from the server's Plugins page.
 
 This loopback URL works when the panel and GBX service run directly on the same
 machine. Containers need an address reachable from inside their network instead.

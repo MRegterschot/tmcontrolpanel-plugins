@@ -75,7 +75,10 @@ assumes a published SDK; use the root tooling above in this repository.
 - Declare settings forms in manifest `configSchema`, with useful defaults and
   matching TypeScript config types. Target SDK 2 for nested forms, tabs and selectors;
   follow `wiki/Configuration-Forms.md`. Do not add plugin-specific React settings UI.
-- Use SDK widget/window layouts and `{{action "name"}}` helpers. Keep template paths
+- Use SDK widget/window layouts and `{{action "name"}}` helpers. Color templates with
+  the SDK 4 theme instead of hardcoding colors (white and black included): quads use
+  `{{@theme.quad.*}}`, labels and entries `{{@theme.label.*}}`, each with `foreground`,
+  `background`, `foregroundMuted` and `backgroundMuted`. Keep template paths
   and registered actions consistent. Provide the matching `-update.hbs` template
   for update-page widgets, or explicitly use `withUpdate: false`.
 - Follow nearby source formatting and keep bundles readable. Never place credentials

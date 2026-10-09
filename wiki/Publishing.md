@@ -48,7 +48,8 @@ must keep its author identity.
 
 ## Compatibility and withdrawal
 
-SDK 2 forms require SDK 2 in both the panel and GBX service. A plugin targeting a
+SDK 2 forms require SDK 2 in both the panel and GBX service, and theme colors
+require SDK 4. A plugin targeting a
 newer SDK is not an installable update on older panels. Existing installs stay pinned
 until an admin selects Update and accepts any additional capabilities.
 

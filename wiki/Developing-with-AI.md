@@ -40,7 +40,7 @@ For example, use this as a first implementation request:
 
 ```text
 Read AGENTS.md and the Hello plugin and its tests. Create a new plugin in
-plugins/my-greeting with slug and command my-greeting, targeting SDK 2.
+plugins/my-greeting with slug and command my-greeting, targeting SDK 4.
 
 When a player joins or types /my-greeting, send only that player a configurable
 greeting containing their nickname. Add greeting (string, default "Welcome")

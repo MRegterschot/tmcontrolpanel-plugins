@@ -1,23 +1,23 @@
 {{#extend "widget"}}
 {{#content "widget"}}
 <frame pos="0 0">
-  <quad pos="0 0" z-index="0" size="55 5" bgcolor="222"/>
+  <quad pos="0 0" z-index="0" size="55 5" bgcolor="{{ @theme.quad.background }}"/>
   <label pos="27.5 -2.25" z-index="0" size="55 5" text="Active Runs" halign="center" textsize="1" textfont="GameFontSemiBold" valign="center"/>
 </frame>
 
 <framemodel id="active-run">
-  <quad pos="0 0" z-index="0" size="40.5 5" bgcolor="DDD"/>
+  <quad pos="0 0" z-index="0" size="40.5 5" bgcolor="{{ @theme.quad.foreground }}"/>
   <quad pos="40.5 0" z-index="0" size="14.5 5" bgcolor="BBB"/>
-  <quad pos="1.25 -1" z-index="0" size="4.5 3" bgcolor="DDD" image="file://Media/Flags/WOR.dds"/>
-  <label pos="7 -2.25" z-index="0" size="30.5 5" text="-" textcolor="222" textsize="1.2" textfont="GameFontRegular" valign="center"/>
-  <label pos="39.75 -2.25" z-index="0" size="5 5" text="0" halign="right" textcolor="222" textsize="1" textfont="GameFontRegular" valign="center"/>
-  <label pos="54 -2.25" z-index="0" size="12.5 5" text="--:--.---" valign="center" halign="right" textsize="1" textcolor="222" textfont="GameFontSemiBold"/>
+  <quad pos="1.25 -1" z-index="0" size="4.5 3" bgcolor="{{ @theme.quad.foreground }}" image="file://Media/Flags/WOR.dds"/>
+  <label pos="7 -2.25" z-index="0" size="30.5 5" text="-" textcolor="{{ @theme.label.background }}" textsize="1.2" textfont="GameFontRegular" valign="center"/>
+  <label pos="39.75 -2.25" z-index="0" size="5 5" text="0" halign="right" textcolor="{{ @theme.label.background }}" textsize="1" textfont="GameFontRegular" valign="center"/>
+  <label pos="54 -2.25" z-index="0" size="12.5 5" text="--:--.---" valign="center" halign="right" textsize="1" textcolor="{{ @theme.label.background }}" textfont="GameFontSemiBold"/>
   
-  <quad class="trigger" pos="0 0" z-index="-2" size="55 5" bgcolor="000" opacity="0" scriptevents="1" />
+  <quad class="trigger" pos="0 0" z-index="-2" size="55 5" bgcolor="{{ @theme.quad.background }}" opacity="0" scriptevents="1" />
 </framemodel>
 
 <frame id="active-runs" pos="0 -5.25" size="55 42">
-<quad size="55 {{ multiply 100 5.25 }}" bgcolor="fff" opacity="0" scriptevents="1"/>
+<quad size="55 {{ multiply 100 5.25 }}" bgcolor="{{ @theme.quad.foreground }}" opacity="0" scriptevents="1"/>
 {{#range 0 100}}
 <frameinstance modelid="active-run" pos="0 {{ multiply i -5.25 }}" />
 {{/range}}

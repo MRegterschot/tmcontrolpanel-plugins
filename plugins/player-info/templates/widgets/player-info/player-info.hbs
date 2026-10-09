@@ -2,39 +2,39 @@
 {{#content "widget"}}
 <frame pos="0 0" id="player-info-container" hidden="1">
   <frame pos="0 0" id="player-name">
-    <quad pos="0 0" z-index="0" size="7 7" bgcolor="222"/>
-    <quad pos="7 0" z-index="0" size="48 7" bgcolor="DDD"/>
-    <quad pos="3.5 -3.5" z-index="0" size="4.5 3" bgcolor="222" image="file://Media/Flags/WOR.dds" halign="center" valign="center" />
-    <label pos="8.5 -3.25" z-index="0" size="47 7" text="" valign="center" textcolor="222" textsize="2" textfont="GameFontSemiBold"/>
+    <quad pos="0 0" z-index="0" size="7 7" bgcolor="{{ @theme.quad.background }}"/>
+    <quad pos="7 0" z-index="0" size="48 7" bgcolor="{{ @theme.quad.foreground }}"/>
+    <quad pos="3.5 -3.5" z-index="0" size="4.5 3" bgcolor="{{ @theme.quad.background }}" image="file://Media/Flags/WOR.dds" halign="center" valign="center" />
+    <label pos="8.5 -3.25" z-index="0" size="47 7" text="" valign="center" textcolor="{{ @theme.label.background }}" textsize="2" textfont="GameFontSemiBold"/>
   </frame>
 
   <frame pos="0 -8" id="player-info-title">
-    <quad pos="0 0" z-index="0" size="55 5" bgcolor="222"/>
+    <quad pos="0 0" z-index="0" size="55 5" bgcolor="{{ @theme.quad.background }}"/>
     <label pos="27.5 -2.25" z-index="0" size="55 5" text="Player Info" halign="center" textsize="1" textfont="GameFontSemiBold" valign="center"/>
   </frame>
 
   <frame pos="0 -13.25" id="records-info">
-    <quad pos="0 0" z-index="0" size="8 8" bgcolor="222"/>
-    <quad pos="8 0" z-index="0" size="19.5 8" bgcolor="DDD"/>
-    <label pos="4 -3.75" z-index="0" size="8 8" text="PB" halign="center" valign="center" textsize="1.5" textcolor="DDD" textfont="GameFontBlack"/>
-    <label pos="17.75 -3.75" z-index="0" size="15.5 8" text="--:--.---" valign="center" halign="center" textcolor="222" textsize="1.5" textfont="GameFontSemiBold"/>
+    <quad pos="0 0" z-index="0" size="8 8" bgcolor="{{ @theme.quad.background }}"/>
+    <quad pos="8 0" z-index="0" size="19.5 8" bgcolor="{{ @theme.quad.foreground }}"/>
+    <label pos="4 -3.75" z-index="0" size="8 8" text="PB" halign="center" valign="center" textsize="1.5" textcolor="{{ @theme.label.foreground }}" textfont="GameFontBlack"/>
+    <label pos="17.75 -3.75" z-index="0" size="15.5 8" text="--:--.---" valign="center" halign="center" textcolor="{{ @theme.label.background }}" textsize="1.5" textfont="GameFontSemiBold"/>
 
-    <quad pos="27.5 0" z-index="0" size="8 8" bgcolor="222"/>
-    <quad pos="35.5 0" z-index="0" size="19.5 8" bgcolor="DDD"/>
-    <label pos="31.5 -3.75" z-index="0" size="8 8" text="LR" halign="center" valign="center" textsize="1.5" textcolor="DDD" textfont="GameFontBlack"/>
-    <label pos="45.25 -3.75" z-index="0" size="15.5 8" text="--:--.---" valign="center" halign="center" textcolor="222" textsize="1.5" textfont="GameFontSemiBold"/>
+    <quad pos="27.5 0" z-index="0" size="8 8" bgcolor="{{ @theme.quad.background }}"/>
+    <quad pos="35.5 0" z-index="0" size="19.5 8" bgcolor="{{ @theme.quad.foreground }}"/>
+    <label pos="31.5 -3.75" z-index="0" size="8 8" text="LR" halign="center" valign="center" textsize="1.5" textcolor="{{ @theme.label.foreground }}" textfont="GameFontBlack"/>
+    <label pos="45.25 -3.75" z-index="0" size="15.5 8" text="--:--.---" valign="center" halign="center" textcolor="{{ @theme.label.background }}" textsize="1.5" textfont="GameFontSemiBold"/>
   </frame>
 
   <frame pos="0 -21.5" id="other-info">
-    <quad pos="0 0" z-index="0" size="8 8" bgcolor="222"/>
-    <quad pos="8 0" z-index="0" size="19.5 8" bgcolor="DDD"/>
-    <label pos="4 -3.75" z-index="0" size="8 8" text="" halign="center" valign="center" textsize="1.5" textcolor="DDD" textfont="GameFontBlack"/>
-    <label pos="17.75 -3.75" z-index="0" size="15.5 8" text="" valign="center" halign="center" textcolor="222" textsize="1.5" textfont="GameFontSemiBold"/>
+    <quad pos="0 0" z-index="0" size="8 8" bgcolor="{{ @theme.quad.background }}"/>
+    <quad pos="8 0" z-index="0" size="19.5 8" bgcolor="{{ @theme.quad.foreground }}"/>
+    <label pos="4 -3.75" z-index="0" size="8 8" text="" halign="center" valign="center" textsize="1.5" textcolor="{{ @theme.label.foreground }}" textfont="GameFontBlack"/>
+    <label pos="17.75 -3.75" z-index="0" size="15.5 8" text="" valign="center" halign="center" textcolor="{{ @theme.label.background }}" textsize="1.5" textfont="GameFontSemiBold"/>
 
-    <quad pos="27.5 0" z-index="0" size="8 8" bgcolor="222"/>
-    <quad pos="35.5 0" z-index="0" size="19.5 8" bgcolor="DDD"/>
-    <label pos="31.5 -3.75" z-index="0" size="8 8" text="" halign="center" valign="center" textsize="1.5" textcolor="DDD" textfont="GameFontBlack"/>
-    <label pos="45.25 -3.75" z-index="0" size="15.5 8" text="" valign="center" halign="center" textcolor="222" textsize="1.5" textfont="GameFontSemiBold"/>
+    <quad pos="27.5 0" z-index="0" size="8 8" bgcolor="{{ @theme.quad.background }}"/>
+    <quad pos="35.5 0" z-index="0" size="19.5 8" bgcolor="{{ @theme.quad.foreground }}"/>
+    <label pos="31.5 -3.75" z-index="0" size="8 8" text="" halign="center" valign="center" textsize="1.5" textcolor="{{ @theme.label.foreground }}" textfont="GameFontBlack"/>
+    <label pos="45.25 -3.75" z-index="0" size="15.5 8" text="" valign="center" halign="center" textcolor="{{ @theme.label.background }}" textsize="1.5" textfont="GameFontSemiBold"/>
   </frame>
 </frame>
 {{/content}}

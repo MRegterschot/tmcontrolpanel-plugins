@@ -1,27 +1,27 @@
 {{#extend "widget"}}
 {{#content "widget"}}
 <frame id="pickban-action" pos="0 0">
-  <quad pos="0 0" z-index="0" size="120 10" bgcolor="222"/>
-  <label pos="5 -4.75" z-index="0" size="10 10" text="" halign="center" valign="center" textsize="2.5" textcolor="DDD" textfont="GameFontRegular"/>
-  <label pos="12 -4.75" z-index="0" size="94 5" text="Marijn. is picking a map" valign="center" textcolor="DDD" textsize="1.75" textfont="GameFontSemiBold" />
-  <label pos="115 -4.75" z-index="0" size="10 5" text="" halign="right" valign="center" textcolor="DDD" textsize="1.75" textfont="GameFontSemiBold" />
-  <quad pos="0 -9" z-index="1" size="120 1" bgcolor="DDD" opacity="0" />
+  <quad pos="0 0" z-index="0" size="120 10" bgcolor="{{ @theme.quad.background }}"/>
+  <label pos="5 -4.75" z-index="0" size="10 10" text="" halign="center" valign="center" textsize="2.5" textcolor="{{ @theme.label.foreground }}" textfont="GameFontRegular"/>
+  <label pos="12 -4.75" z-index="0" size="94 5" text="Marijn. is picking a map" valign="center" textcolor="{{ @theme.label.foreground }}" textsize="1.75" textfont="GameFontSemiBold" />
+  <label pos="115 -4.75" z-index="0" size="10 5" text="" halign="right" valign="center" textcolor="{{ @theme.label.foreground }}" textsize="1.75" textfont="GameFontSemiBold" />
+  <quad pos="0 -9" z-index="1" size="120 1" bgcolor="{{ @theme.quad.foreground }}" opacity="0" />
 </frame>
 
 <framemodel id="map-info">
-  <quad pos="0 0" z-index="0" size="10 10" bgcolor="222"/>
-  <quad pos="10 0" z-index="0" size="90 10" bgcolor="DDD"/>
-  <label pos="5 -4.5" z-index="0" size="10 10" text="" halign="center" valign="center" textsize="3" textcolor="DDD" textfont="GameFontBlack"/>
-  <label pos="12 -5.25" z-index="0" size="41 5" text="-" textcolor="222" textsize="1.75" textfont="GameFontSemiBold" valign="bottom"/>
-  <label pos="11.75 -5.5" z-index="0" size="41 5" text="-" textcolor="222" textprefix="$i" textfont="GameFontRegular" valign="top" textsize="1"/>
+  <quad pos="0 0" z-index="0" size="10 10" bgcolor="{{ @theme.quad.background }}"/>
+  <quad pos="10 0" z-index="0" size="90 10" bgcolor="{{ @theme.quad.foreground }}"/>
+  <label pos="5 -4.5" z-index="0" size="10 10" text="" halign="center" valign="center" textsize="3" textcolor="{{ @theme.label.foreground }}" textfont="GameFontBlack"/>
+  <label pos="12 -5.25" z-index="0" size="41 5" text="-" textcolor="{{ @theme.label.background }}" textsize="1.75" textfont="GameFontSemiBold" valign="bottom"/>
+  <label pos="11.75 -5.5" z-index="0" size="41 5" text="-" textcolor="{{ @theme.label.background }}" textprefix="$i" textfont="GameFontRegular" valign="top" textsize="1"/>
 
-  <label pos="95 -4.75" z-index="0" size="41 5" text="" textcolor="222" textsize="1.75" textfont="GameFontSemiBold" valign="center" halign="right" />
+  <label pos="95 -4.75" z-index="0" size="41 5" text="" textcolor="{{ @theme.label.background }}" textsize="1.75" textfont="GameFontSemiBold" valign="center" halign="right" />
 
-  <quad class="trigger" pos="0 0" z-index="-2" size="100 10" bgcolor="000" opacity="0" scriptevents="1" />
+  <quad class="trigger" pos="0 0" z-index="-2" size="100 10" bgcolor="{{ @theme.quad.background }}" opacity="0" scriptevents="1" />
 </framemodel>
 
 <frame id="maps" pos="0 -10" size="120 124">
-<quad pos="0 {{ subtract (subtract 1159 (multiply (jsonLength data.mapInfosJson) 11.5)) 9 }}" size="120 1159" bgcolor="222" opacity="0.75" scriptevents="1"/>
+<quad pos="0 {{ subtract (subtract 1159 (multiply (jsonLength data.mapInfosJson) 11.5)) 9 }}" size="120 1159" bgcolor="{{ @theme.quad.background }}" opacity="0.75" scriptevents="1"/>
 {{#range 0 100}}
 <frameinstance modelid="map-info" pos="5 {{ subtract (multiply i -11.5) 5 }}" />
 {{/range}}
@@ -173,7 +173,7 @@ Void setRowHighlighted(Integer index, Boolean highlighted) {
   if (highlighted) {
     (mapFrame.Controls[1] as CMlQuad).BgColor = CL::Hex3ToRgb("999");
   } else {
-    (mapFrame.Controls[1] as CMlQuad).BgColor = CL::Hex3ToRgb("DDD");
+    (mapFrame.Controls[1] as CMlQuad).BgColor = CL::Hex3ToRgb("{{ @theme.quad.foreground }}");
   }
 }
 

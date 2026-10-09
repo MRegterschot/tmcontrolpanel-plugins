@@ -1,23 +1,23 @@
 {{#extend "widget"}}
 {{#content "widget"}}
 <frame pos="0 0">
-  <quad pos="0 0" z-index="0" size="55 5" bgcolor="222"/>
+  <quad pos="0 0" z-index="0" size="55 5" bgcolor="{{ @theme.quad.background }}"/>
   <label pos="27.5 -2.25" z-index="0" size="55 5" text="Live Ranking" halign="center" textsize="1" textfont="GameFontSemiBold" valign="center"/>
 </frame>
 
 <framemodel id="ranking">
-  <quad pos="0 0" z-index="0" size="5 5" bgcolor="222"/>
-  <quad pos="5 0" z-index="0" size="50 5" bgcolor="DDD"/>
-  <label pos="2.4 -2.25" z-index="0" size="5 5" text="0" halign="center" valign="center" textsize="1.25" textcolor="DDD" textfont="GameFontSemiBold"/>
-  <quad pos="6.25 -1" z-index="0" size="4.5 3" bgcolor="DDD" image="file://Media/Flags/WOR.dds"/>
-  <label pos="12 -2.25" z-index="0" size="32 5" text="-" textcolor="222" textsize="1.2" textfont="GameFontRegular" valign="center"/>
-  <label pos="53 -2.25" z-index="0" size="7.5 5" text="0" valign="center" halign="right" textsize="1" textcolor="222" textfont="GameFontSemiBold"/>
+  <quad pos="0 0" z-index="0" size="5 5" bgcolor="{{ @theme.quad.background }}"/>
+  <quad pos="5 0" z-index="0" size="50 5" bgcolor="{{ @theme.quad.foreground }}"/>
+  <label pos="2.4 -2.25" z-index="0" size="5 5" text="0" halign="center" valign="center" textsize="1.25" textcolor="{{ @theme.label.foreground }}" textfont="GameFontSemiBold"/>
+  <quad pos="6.25 -1" z-index="0" size="4.5 3" bgcolor="{{ @theme.quad.foreground }}" image="file://Media/Flags/WOR.dds"/>
+  <label pos="12 -2.25" z-index="0" size="32 5" text="-" textcolor="{{ @theme.label.background }}" textsize="1.2" textfont="GameFontRegular" valign="center"/>
+  <label pos="53 -2.25" z-index="0" size="7.5 5" text="0" valign="center" halign="right" textsize="1" textcolor="{{ @theme.label.background }}" textfont="GameFontSemiBold"/>
 
-  <quad class="trigger" pos="0 0" z-index="-2" size="55 5" bgcolor="000" opacity="0" scriptevents="1" />
+  <quad class="trigger" pos="0 0" z-index="-2" size="55 5" bgcolor="{{ @theme.quad.background }}" opacity="0" scriptevents="1" />
 </framemodel>
 
 <frame id="rankings" pos="0 -5.25" size="55 42">
-<quad size="55 {{ multiply 100 5.25 }}" bgcolor="fff" opacity="0" scriptevents="1"/>
+<quad size="55 {{ multiply 100 5.25 }}" bgcolor="{{ @theme.quad.foreground }}" opacity="0" scriptevents="1"/>
 {{#range 0 100}}
   <frameinstance modelid="ranking" pos="0 {{ multiply i -5.25 }}" />
 {{/range}}
@@ -83,11 +83,11 @@ Void updateRankingRow(Integer index, Ranking ranking, Text mode, Integer pointsL
     (rankingFrame.Controls[4] as CMlLabel).TextColor = CL::Hex3ToRgb(ranking.team.textColor);
     (rankingFrame.Controls[5] as CMlLabel).TextColor = CL::Hex3ToRgb(ranking.team.textColor);
   } else {
-    (rankingFrame.Controls[0] as CMlQuad).BgColor = CL::Hex3ToRgb("222");
-    (rankingFrame.Controls[1] as CMlQuad).BgColor = CL::Hex3ToRgb("DDD");
-    (rankingFrame.Controls[3] as CMlQuad).BgColor = CL::Hex3ToRgb("DDD");
-    (rankingFrame.Controls[4] as CMlLabel).TextColor = CL::Hex3ToRgb("222");
-    (rankingFrame.Controls[5] as CMlLabel).TextColor = CL::Hex3ToRgb("222");
+    (rankingFrame.Controls[0] as CMlQuad).BgColor = CL::Hex3ToRgb("{{ @theme.quad.background }}");
+    (rankingFrame.Controls[1] as CMlQuad).BgColor = CL::Hex3ToRgb("{{ @theme.quad.foreground }}");
+    (rankingFrame.Controls[3] as CMlQuad).BgColor = CL::Hex3ToRgb("{{ @theme.quad.foreground }}");
+    (rankingFrame.Controls[4] as CMlLabel).TextColor = CL::Hex3ToRgb("{{ @theme.label.background }}");
+    (rankingFrame.Controls[5] as CMlLabel).TextColor = CL::Hex3ToRgb("{{ @theme.label.background }}");
   }
 
   rankingFrame.Show();

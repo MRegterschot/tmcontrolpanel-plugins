@@ -17,7 +17,7 @@ exports[`TemplateRenderer > renders action-group 1`] = `
           <quad image="x" size="3.5 3.5" pos="0.75 -0.75" />
       </frame>
 
-    <quad class="trigger" pos="5 0" z-index="2" size="5 5" bgcolor="000" opacity="0" scriptevents="1" />
+    <quad class="trigger" pos="5 0" z-index="2" size="5 5" bgcolor="222" opacity="0" scriptevents="1" />
   </frame>
 </frame>
 
@@ -313,8 +313,8 @@ exports[`TemplateRenderer > renders widgets/greeting 1`] = `
 <frame id="widget" pos="1 2" z-index="10" hidden="1">
 <frame pos="0 0">
   <quad pos="0 0" z-index="0" size="50 8" bgcolor="222" opacity="0.85" />
-  <label pos="2 -4" z-index="1" size="38 6" text="" valign="center" textsize="1.5" textcolor="FFF" />
-  <label pos="45 -4" z-index="1" size="8 6" text="Hi" halign="center" valign="center" textsize="1.5" textcolor="FFF" action="wave" focusareacolor1="0000" focusareacolor2="FFF3" />
+  <label pos="2 -4" z-index="1" size="38 6" text="" valign="center" textsize="1.5" textcolor="DDD" />
+  <label pos="45 -4" z-index="1" size="8 6" text="Hi" halign="center" valign="center" textsize="1.5" textcolor="DDD" action="wave" focusareacolor1="2220" focusareacolor2="DDD3" />
 </frame>
 
 </frame>
@@ -435,11 +435,11 @@ exports[`TemplateRenderer > renders widgets/live-ranking/live-ranking 1`] = `
   <label pos="12 -2.25" z-index="0" size="32 5" text="-" textcolor="222" textsize="1.2" textfont="GameFontRegular" valign="center"/>
   <label pos="53 -2.25" z-index="0" size="7.5 5" text="0" valign="center" halign="right" textsize="1" textcolor="222" textfont="GameFontSemiBold"/>
 
-  <quad class="trigger" pos="0 0" z-index="-2" size="55 5" bgcolor="000" opacity="0" scriptevents="1" />
+  <quad class="trigger" pos="0 0" z-index="-2" size="55 5" bgcolor="222" opacity="0" scriptevents="1" />
 </framemodel>
 
 <frame id="rankings" pos="0 -5.25" size="55 42">
-<quad size="55 525" bgcolor="fff" opacity="0" scriptevents="1"/>
+<quad size="55 525" bgcolor="DDD" opacity="0" scriptevents="1"/>
   <frameinstance modelid="ranking" pos="0 0" />
   <frameinstance modelid="ranking" pos="0 -5.25" />
   <frameinstance modelid="ranking" pos="0 -10.5" />
@@ -825,11 +825,11 @@ exports[`TemplateRenderer > renders widgets/live-round/live-round 1`] = `
     <label pos="10.5 -2.25" size="6 5" z-index="-1" text="WR" halign="center" valign="center" textsize="1.25" textfont="GameFontSemiBold" textcolor="DDD" hidden="1" />
   </frame>
 
-  <quad class="trigger" pos="0 0" z-index="-2" size="57 5" bgcolor="000" opacity="0" scriptevents="1" />
+  <quad class="trigger" pos="0 0" z-index="-2" size="57 5" bgcolor="222" opacity="0" scriptevents="1" />
 </framemodel>
 
 <frame id="rounds" pos="0 -5.25" size="69 42">
-<quad size="55 525" bgcolor="fff" opacity="0" scriptevents="1"/>
+<quad size="55 525" bgcolor="DDD" opacity="0" scriptevents="1"/>
 <frameinstance modelid="round" pos="0 0" />
 <frameinstance modelid="round" pos="0 -5.25" />
 <frameinstance modelid="round" pos="0 -10.5" />
@@ -1622,7 +1622,7 @@ exports[`TemplateRenderer > renders widgets/match/pickban 1`] = `
 
   <label pos="95 -4.75" z-index="0" size="41 5" text="" textcolor="222" textsize="1.75" textfont="GameFontSemiBold" valign="center" halign="right" />
 
-  <quad class="trigger" pos="0 0" z-index="-2" size="100 10" bgcolor="000" opacity="0" scriptevents="1" />
+  <quad class="trigger" pos="0 0" z-index="-2" size="100 10" bgcolor="222" opacity="0" scriptevents="1" />
 </framemodel>
 
 <frame id="maps" pos="0 -10" size="120 124">
@@ -2241,7 +2241,7 @@ exports[`TemplateRenderer > renders widgets/notify-admin/notify-admin 1`] = `
   <quad pos="0 -8" z-index="0" size="36 0.5" bgcolor="222"/>
   <label pos="18 -3.75" z-index="0" size="36 8" text="Notify Admin" halign="center" valign="center" textsize="2" textcolor="222" textfont="GameFontSemiBold"/>
 
-  <quad pos="0 0" size="36 8.5" z-index="-2" scriptevents="1" bgcolor="fff" opacity="0" action="" />
+  <quad pos="0 0" size="36 8.5" z-index="-2" scriptevents="1" bgcolor="DDD" opacity="0" action="" />
 </frame>
 
 </frame>
@@ -2876,11 +2876,11 @@ exports[`TemplateRenderer > renders widgets/ta-active-runs/ta-active-runs 1`] = 
   <label pos="39.75 -2.25" z-index="0" size="5 5" text="0" halign="right" textcolor="222" textsize="1" textfont="GameFontRegular" valign="center"/>
   <label pos="54 -2.25" z-index="0" size="12.5 5" text="--:--.---" valign="center" halign="right" textsize="1" textcolor="222" textfont="GameFontSemiBold"/>
   
-  <quad class="trigger" pos="0 0" z-index="-2" size="55 5" bgcolor="000" opacity="0" scriptevents="1" />
+  <quad class="trigger" pos="0 0" z-index="-2" size="55 5" bgcolor="222" opacity="0" scriptevents="1" />
 </framemodel>
 
 <frame id="active-runs" pos="0 -5.25" size="55 42">
-<quad size="55 525" bgcolor="fff" opacity="0" scriptevents="1"/>
+<quad size="55 525" bgcolor="DDD" opacity="0" scriptevents="1"/>
 <frameinstance modelid="active-run" pos="0 0" />
 <frameinstance modelid="active-run" pos="0 -5.25" />
 <frameinstance modelid="active-run" pos="0 -10.5" />
@@ -3251,7 +3251,7 @@ exports[`TemplateRenderer > renders widgets/ta-leaderboard/ta-leaderboard 1`] = 
 </framemodel>
 
 <frame id="records" pos="0 -5.25" size="55 42">
-<quad size="55 525" bgcolor="fff" opacity="0" scriptevents="1"/>
+<quad size="55 525" bgcolor="DDD" opacity="0" scriptevents="1"/>
 <frameinstance modelid="record" pos="0 0" />
 <frameinstance modelid="record" pos="0 -5.25" />
 <frameinstance modelid="record" pos="0 -10.5" />
@@ -3666,7 +3666,7 @@ exports[`TemplateRenderer > renders window 1`] = `
 <frame id="window" pos="-25 20" size="50 45" z-index="20">
   <quad pos="0 0" size="50 5" bgcolor="222" />
   <label pos="1.5 -2.25" text="Title" size="40.5 5" valign="center" halign="left" textsize="1" color="DDD" textfont="GameFontSemiBold" />
-  <label pos="48.5 -2.25" text="" size="5 5" valign="center" halign="right" textsize="1" color="222" action="close-window-test-id" focusareacolor2="fff0" />
+  <label pos="48.5 -2.25" text="" size="5 5" valign="center" halign="right" textsize="1" color="222" action="close-window-test-id" focusareacolor2="DDD0" />
 
   <quad pos="0 -5" size="50 40" bgcolor="DDD" />
   <frame pos="0 -5" size="50 40">
@@ -3712,7 +3712,7 @@ exports[`TemplateRenderer > renders windows/ecm/ecm-window 1`] = `
 <frame id="window" pos="-25 20" size="50 45" z-index="20">
   <quad pos="0 0" size="50 5" bgcolor="222" />
   <label pos="1.5 -2.25" text="Title" size="40.5 5" valign="center" halign="left" textsize="1" color="DDD" textfont="GameFontSemiBold" />
-  <label pos="48.5 -2.25" text="" size="5 5" valign="center" halign="right" textsize="1" color="222" action="close-window-test-id" focusareacolor2="fff0" />
+  <label pos="48.5 -2.25" text="" size="5 5" valign="center" halign="right" textsize="1" color="222" action="close-window-test-id" focusareacolor2="DDD0" />
 
   <quad pos="0 -5" size="50 40" bgcolor="DDD" />
   <frame pos="0 -5" size="50 40">
@@ -3939,7 +3939,7 @@ exports[`TemplateRenderer > renders windows/match/choose-position-window 1`] = `
 <frame id="window" pos="-25 20" size="50 45" z-index="20">
   <quad pos="0 0" size="50 5" bgcolor="222" />
   <label pos="1.5 -2.25" text="Title" size="40.5 5" valign="center" halign="left" textsize="1" color="DDD" textfont="GameFontSemiBold" />
-  <label pos="48.5 -2.25" text="" size="5 5" valign="center" halign="right" textsize="1" color="222" action="close-window-test-id" focusareacolor2="fff0" />
+  <label pos="48.5 -2.25" text="" size="5 5" valign="center" halign="right" textsize="1" color="222" action="close-window-test-id" focusareacolor2="DDD0" />
 
   <quad pos="0 -5" size="50 40" bgcolor="DDD" />
   <frame pos="0 -5" size="50 40">
@@ -3948,13 +3948,13 @@ exports[`TemplateRenderer > renders windows/match/choose-position-window 1`] = `
       <quad pos="0 0" z-index="0" size="10 10" bgcolor="222"/>
       <label pos="5 -4.5" z-index="0" size="10 10" text="1" halign="center" valign="center" textsize="3" textcolor="DDD" textfont="GameFontBlack"/>
 
-      <quad class="trigger" pos="0 0" z-index="-2" size="10 10" bgcolor="000" opacity="0" scriptevents="1" action="-1" />
+      <quad class="trigger" pos="0 0" z-index="-2" size="10 10" bgcolor="222" opacity="0" scriptevents="1" action="-1" />
     </frame>
     <frame pos="12 0" size="10 10">
       <quad pos="0 0" z-index="0" size="10 10" bgcolor="222"/>
       <label pos="5 -4.5" z-index="0" size="10 10" text="2" halign="center" valign="center" textsize="3" textcolor="DDD" textfont="GameFontBlack"/>
 
-      <quad class="trigger" pos="0 0" z-index="-2" size="10 10" bgcolor="000" opacity="0" scriptevents="1" action="-2" />
+      <quad class="trigger" pos="0 0" z-index="-2" size="10 10" bgcolor="222" opacity="0" scriptevents="1" action="-2" />
     </frame>
 </frame>
 

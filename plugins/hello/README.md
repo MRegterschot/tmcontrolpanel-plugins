@@ -1,9 +1,9 @@
 # Hello: a complete example plugin
 
-Start here when creating a GoControlPanel plugin. This SDK 2 example includes:
+Start here when creating a GoControlPanel plugin. This SDK 4 example includes:
 
 - A `/hello` command and a player-connect event handler.
-- A greeting widget with a clickable **Hi** action.
+- A greeting widget with a clickable **Hi** action, colored by the panel theme.
 - Per-player greeting counts saved in persistent plugin storage.
 - A registry-owned settings form with Greeting and Widget tabs.
 - Sandbox tests that exercise the packaged plugin.
@@ -32,7 +32,7 @@ From the registry root, after following the setup in `wiki/Getting-Started.md`:
 
 ```bash
 bun .controlpanel/packages/plugin-sdk/src/cli/main.ts pack plugins/hello
-bun .controlpanel/packages/plugin-sdk/src/cli/main.ts validate plugins/hello/dist/hello-1.1.0.zip
+bun .controlpanel/packages/plugin-sdk/src/cli/main.ts validate plugins/hello/dist/hello-1.2.0.zip
 bun run test -- test/hello-plugin.test.ts
 ```
 

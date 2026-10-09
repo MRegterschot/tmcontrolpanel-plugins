@@ -1,6 +1,6 @@
 # Getting started
 
-You need Git, Bun, and a panel checkout containing SDK 2. A running game server and
+You need Git, Bun, and a panel checkout containing SDK 4. A running game server and
 panel are needed for in-game testing, but not for the build and sandbox tests.
 There is no separate SDK service, and the SDK is not currently published on npm.
 

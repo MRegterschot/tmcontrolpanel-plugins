@@ -17,7 +17,7 @@ Edit `tmcp-plugin.json` before building:
 
 - Set `author`, a useful `description`, and your repository URL.
 - Keep the scaffold's unique slug and matching command name.
-- Target SDK 2 for tabs, nested forms and selectors.
+- Target SDK 2 for tabs, nested forms and selectors, and SDK 4 for theme colors.
 - Declare only the capabilities your plugin calls.
 - Set `configSchema` defaults so a new install works without manual setup.
 
@@ -58,6 +58,26 @@ For a richer example, read
 and its template. `ctx.on("playerConnect", ...)` handles connections,
 `ctx.action("wave", ...)` handles the template's `{{action "wave"}}`, and
 `ctx.storage.get/set` persists values within the plugin's server-specific namespace.
+
+## Use the theme colors
+
+Templates get the panel theme as two palettes, `@theme.quad` and `@theme.label`,
+each with `foreground`, `background`, `foregroundMuted` and `backgroundMuted`
+(three-digit hex such as `DDD`). Pick the palette by element: color attributes on a
+`<quad>` use `quad`; those on a `<label>` or `<entry>` (`textcolor`, `color`,
+`focusareacolor1/2`) use `label`. Use them instead of fixed colors, white and black
+included, so the plugin matches the panel's windows:
+
+```hbs
+<quad size="50 5" bgcolor="{{ @theme.quad.background }}" />
+<label text="{{ data.text }}" textcolor="{{ @theme.label.foreground }}" />
+```
+
+They also work inside `{{#each}}` and in ManiaScript, where `CMlQuad.BgColor` uses
+`quad` and `CMlLabel.TextColor` uses `label`, e.g.
+`CL::Hex3ToRgb("{{ @theme.label.foreground }}")`. Append an alpha digit for
+translucency (`{{ @theme.label.foreground }}3`). Accent colors such as red or green
+stay hardcoded. Declare `"sdk": 4` when a template uses the theme.
 
 ## Build your first package
 
