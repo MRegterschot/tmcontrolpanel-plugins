@@ -1,5 +1,6 @@
 import {
   definePlugin,
+  loginToAccountId,
   MapList,
   type ManialinkAnswer,
   type PluginContext,
@@ -512,11 +513,19 @@ export class MatchPlugin {
       ]),
     );
 
-    return fileNames.flatMap((fileName): PickBanMap[] => {
+    const maps = fileNames.flatMap((fileName): PickBanMap[] => {
       const base = { index: 0, selectedBy: [], pickedBy: "", bannedBy: "" };
       const db = fromDb.get(fileName);
       if (db) {
-        return [{ ...base, name: db.name, author: db.author, uid: db.uid, filename: db.fileName }];
+        return [
+          {
+            ...base,
+            name: db.name,
+            author: db.authorNickname || db.author,
+            uid: db.uid,
+            filename: db.fileName,
+          },
+        ];
       }
       const server = fromServer.get(fileName);
       if (!server) return [];
@@ -524,6 +533,35 @@ export class MatchPlugin {
         { ...base, name: server.Name, author: server.Author, uid: server.UId, filename: server.FileName },
       ];
     });
+
+    // Rows without a stored nickname still hold the author login
+    const needName = fileNames.flatMap((fileName) => {
+      const db = fromDb.get(fileName);
+      const login = db ? (db.authorNickname ? "" : db.author) : fromServer.get(fileName)?.Author;
+      return login ? [login] : [];
+    });
+    await this.resolveAuthorNames(maps, needName);
+    return maps;
+  }
+
+  // Replaces author logins with Nadeo account names; keeps the login on failure
+  private async resolveAuthorNames(maps: PickBanMap[], logins: string[]) {
+    const accountIds = new Map<string, string>();
+    for (const login of new Set(logins)) {
+      const id = loginToAccountId(login);
+      if (id) accountIds.set(login, id);
+    }
+    if (accountIds.size === 0) return;
+
+    try {
+      const names = await this.ctx.nadeo.accountNames([...accountIds.values()]);
+      for (const map of maps) {
+        const name = names[accountIds.get(map.author) ?? ""];
+        if (name) map.author = name;
+      }
+    } catch (error) {
+      this.ctx.log.error("Failed to fetch author names", { error: String(error) });
+    }
   }
 
   private async applyLobby(login: string) {
