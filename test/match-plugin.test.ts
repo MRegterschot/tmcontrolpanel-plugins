@@ -35,6 +35,8 @@ describe("match plugin", () => {
       order: "",
       choosePosition: false,
       timeout: 30,
+      autoStart: false,
+      autoStartDelay: 30,
     });
     expect(normalizeConfig(null)).toEqual({});
   });
@@ -70,6 +72,33 @@ describe("match plugin", () => {
     await h.chat("admin", "/pickban");
     await h.clock.advance(30_000);
     expect(broadcast(h).some((m) => /Nick p1 ran out of time, .* was randomly banned/.test(String(m)))).toBe(true);
+  });
+
+  it("starts the match automatically after the pick and ban", async () => {
+    const h = await setup({ pickAndBan: { ...config.pickAndBan, autoStart: true, autoStartDelay: 20 } });
+    await h.chat("admin", "/pickban");
+    await h.click("p1", "match:match-pickban-action-map-a-uid");
+    await h.click("p2", "match:match-pickban-action-map-b-uid");
+    expect(broadcast(h)).toContain("Match starts automatically in 20 seconds");
+
+    h.session.calls.length = 0;
+    await h.clock.advance(19_000);
+    expect(h.session.callsTo("JumpToMapIndex")).toHaveLength(0);
+    await h.clock.advance(1_000);
+    expect(h.session.callsTo("AddMapList").map((c) => c.params[0])).toContainEqual(["Campaigns/MapB.Map.Gbx"]);
+    expect(h.session.callsTo("JumpToMapIndex")[0].params).toEqual([0]);
+  });
+
+  it("cancels the automatic start when the match is stopped", async () => {
+    const h = await setup({ pickAndBan: { ...config.pickAndBan, autoStart: true, autoStartDelay: 20 } });
+    await h.chat("admin", "/pickban");
+    await h.click("p1", "match:match-pickban-action-map-a-uid");
+    await h.click("p2", "match:match-pickban-action-map-b-uid");
+    await h.chat("admin", "/matchstop");
+
+    h.session.calls.length = 0;
+    await h.clock.advance(30_000);
+    expect(h.session.callsTo("JumpToMapIndex")).toHaveLength(0);
   });
 
   it("pauses through the mode script when pausing is available", async () => {

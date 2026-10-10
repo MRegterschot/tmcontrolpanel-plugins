@@ -22,6 +22,9 @@ export interface MatchConfig {
     choosePosition: boolean;
     // Seconds per turn before a random map is chosen; 0/unset disables it
     timeout?: number;
+    // Start the match this many seconds after the pick and ban completes
+    autoStart?: boolean;
+    autoStartDelay?: number;
     teams?: { seed: number; name?: string; players: string[] }[];
     players?: { login: string; seed: number }[];
   };
@@ -34,6 +37,7 @@ export function normalizeConfig(raw: unknown): MatchConfig {
   if (!pickAndBan) return config;
 
   const timeout = Number(pickAndBan.timeout);
+  const autoStartDelay = Number(pickAndBan.autoStartDelay);
   return {
     ...config,
     pickAndBan: {
@@ -41,6 +45,11 @@ export function normalizeConfig(raw: unknown): MatchConfig {
       order: pickAndBan.order ?? "",
       choosePosition: pickAndBan.choosePosition ?? false,
       timeout: Number.isFinite(timeout) && timeout > 0 ? timeout : undefined,
+      autoStart: pickAndBan.autoStart ?? false,
+      autoStartDelay:
+        Number.isFinite(autoStartDelay) && autoStartDelay > 0
+          ? autoStartDelay
+          : DEFAULT_AUTO_START_DELAY,
     },
   };
 }
@@ -54,6 +63,7 @@ type MatchState = "not_started" | "pickban" | "ready" | "in_progress";
 // Pause before the pick & ban result is final, so players can read the board
 const PICKBAN_DONE_DELAY_MS = 10_000;
 const RANDOM_STEP_DELAY_MS = 1_000;
+const DEFAULT_AUTO_START_DELAY = 30;
 
 // A map as other plugins see it in the pick and ban events
 interface EventMap {
@@ -75,6 +85,7 @@ export class MatchPlugin {
   private pickBan: PickBan | null = null;
   private seedsOverride: number[] = [];
   private cancelTurnTimeout: (() => void) | null = null;
+  private cancelAutoStart: (() => void) | null = null;
 
   private readonly maps: MapList;
 
@@ -104,6 +115,7 @@ export class MatchPlugin {
 
   stop() {
     this.clearTurnTimeout();
+    this.clearAutoStart();
   }
 
   get matchState(): MatchState {
@@ -141,8 +153,9 @@ export class MatchPlugin {
     });
   }
 
+  // An empty login (automatic start) reports to everyone
   private tell(login: string, message: string) {
-    return this.ctx.chat.sendTo(login, message);
+    return login ? this.ctx.chat.sendTo(login, message) : this.ctx.chat.send(message);
   }
 
   private authorize(login: string, message: string): boolean {
@@ -165,6 +178,11 @@ export class MatchPlugin {
 
   private async onMatchStart(login: string) {
     if (!this.authorize(login, "You are not authorized to start the match")) return;
+    await this.startMatch(login);
+  }
+
+  private async startMatch(login: string) {
+    this.clearAutoStart();
 
     if (this.state === "pickban") {
       return this.tell(login, "Pick and ban phase is still in progress, cannot start the match");
@@ -218,6 +236,7 @@ export class MatchPlugin {
 
     this.widget.destroy();
     this.clearTurnTimeout();
+    this.clearAutoStart();
     this.state = "not_started";
     this.emit("stopped");
     await this.ctx.chat.send("Match stopped");
@@ -400,7 +419,25 @@ export class MatchPlugin {
       this.emitCompleted(pickBan);
       await this.ctx.chat.send("Pick and ban phase completed, match is ready to start");
       this.widget.destroy();
+      this.scheduleAutoStart();
     }
+  }
+
+  private scheduleAutoStart() {
+    const config = this.config().pickAndBan;
+    if (!config?.autoStart) return;
+
+    const delay = config.autoStartDelay ?? DEFAULT_AUTO_START_DELAY;
+    void this.ctx.chat.send(`Match starts automatically in ${delay} seconds`);
+    this.cancelAutoStart = this.ctx.setTimeout(() => {
+      this.cancelAutoStart = null;
+      if (this.state === "ready") void this.startMatch("");
+    }, delay * 1000);
+  }
+
+  private clearAutoStart() {
+    this.cancelAutoStart?.();
+    this.cancelAutoStart = null;
   }
 
   // The final result: picked maps in match order, and the bans
