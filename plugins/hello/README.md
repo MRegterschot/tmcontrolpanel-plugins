@@ -1,6 +1,6 @@
 # Hello: a complete example plugin
 
-Start here when creating a GoControlPanel plugin. This SDK 4 example includes:
+Start here when creating a TMControlPanel plugin. This SDK 4 example includes:
 
 - A `/hello` command and a player-connect event handler.
 - A greeting widget with a clickable **Hi** action, colored by the panel theme.

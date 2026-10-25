@@ -1,0 +1,6 @@
+{
+  "url": "ta-active-runs-1.1.1.zip",
+  "sha256": "6fe1480deb5cb48b009bd0730bd68a19087e459682729cddc082b3c1fb223446",
+  "publishedAt": "2026-10-25T14:36:53.099Z",
+  "changelog": "Renamed GoControlPanel to TMControlPanel in the manifest author and documentation."
+}

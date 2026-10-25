@@ -1,6 +1,6 @@
-# GoControlPanel plugins
+# TMControlPanel plugins
 
-The plugin marketplace of [GoControlPanel](https://github.com/MRegterschot/gocontrolpanel). Every panel,
+The plugin marketplace of [TMControlPanel](https://github.com/MRegterschot/gocontrolpanel). Every panel,
 self-hosted ones included, reads the index published from this repository and installs plugins from it.
 
 - **Panels read** `https://mregterschot.github.io/tmcontrolpanel-plugins/index.json`, built by the

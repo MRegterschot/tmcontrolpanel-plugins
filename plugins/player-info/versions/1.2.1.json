@@ -1,0 +1,6 @@
+{
+  "url": "player-info-1.2.1.zip",
+  "sha256": "7730a2015369b0b59b0ccba4140aaa0ef1300e84f34a405eaf60ba932c88cc62",
+  "publishedAt": "2026-10-25T14:36:53.090Z",
+  "changelog": "Renamed GoControlPanel to TMControlPanel in the manifest author and documentation."
+}

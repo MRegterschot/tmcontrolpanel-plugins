@@ -1,0 +1,6 @@
+{
+  "url": "hello-1.2.1.zip",
+  "sha256": "a954a5ecfacd083780ed8d9cc1bff0a1a6accbaa0c640e663969d6e963987a08",
+  "publishedAt": "2026-10-25T14:36:53.039Z",
+  "changelog": "Renamed GoControlPanel to TMControlPanel in the manifest author and documentation."
+}

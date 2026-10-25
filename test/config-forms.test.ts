@@ -5,7 +5,7 @@ import {
   validatePluginConfig,
   coercePluginConfig,
   maskSecrets,
-} from "@gcp/shared";
+} from "@tmcontrolpanel/shared";
 
 function schema(slug: string) {
   const manifest = parseManifest(

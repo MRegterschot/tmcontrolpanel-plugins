@@ -1,0 +1,6 @@
+{
+  "url": "ta-leaderboard-1.1.1.zip",
+  "sha256": "b8aa5065d93189a18d9e17f6f9bed1d14a60fe2b05a0a0cfb4757e1f313282f2",
+  "publishedAt": "2026-10-25T14:36:53.104Z",
+  "changelog": "Renamed GoControlPanel to TMControlPanel in the manifest author and documentation."
+}

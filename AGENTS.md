@@ -2,7 +2,7 @@
 
 ## Repository and references
 
-This repository owns GoControlPanel plugin source, tests, wiki pages and the
+This repository owns TMControlPanel plugin source, tests, wiki pages and the
 marketplace registry. The panel, plugin SDK, sandbox runtime and settings UI live
 in the separate `.controlpanel` checkout (which may be a symlink).
 

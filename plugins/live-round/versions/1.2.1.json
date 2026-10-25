@@ -1,0 +1,6 @@
+{
+  "url": "live-round-1.2.1.zip",
+  "sha256": "7f0bcb984ea105d57f17395d27f7dd106ff20259628308955f0d47ae9372138d",
+  "publishedAt": "2026-10-25T14:36:53.054Z",
+  "changelog": "Renamed GoControlPanel to TMControlPanel in the manifest author and documentation."
+}
