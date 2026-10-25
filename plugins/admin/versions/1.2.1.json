@@ -1,0 +1,6 @@
+{
+  "url": "admin-1.2.1.zip",
+  "sha256": "0dd03d81f9a452f00abc0c3de84c4a091bd13258af270da1a4b2fe35fa3348ab",
+  "publishedAt": "2026-10-25T14:36:53.015Z",
+  "changelog": "Renamed GoControlPanel to TMControlPanel in the manifest author and documentation."
+}

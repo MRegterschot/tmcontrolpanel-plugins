@@ -1,0 +1,6 @@
+{
+  "url": "ecm-1.2.1.zip",
+  "sha256": "5a501ce81ef95f1550238497c086633e5701dfd26bf17c4d664ca4321ab950ee",
+  "publishedAt": "2026-10-25T14:36:53.031Z",
+  "changelog": "Renamed GoControlPanel to TMControlPanel in the manifest author and documentation."
+}

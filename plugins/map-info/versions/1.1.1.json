@@ -1,0 +1,6 @@
+{
+  "url": "map-info-1.1.1.zip",
+  "sha256": "1fedc52c57f80535f1d078b2b0af7734ae256f3a02283d4c38c5831ded5af525",
+  "publishedAt": "2026-10-25T14:36:53.059Z",
+  "changelog": "Renamed GoControlPanel to TMControlPanel in the manifest author and documentation."
+}

@@ -1,6 +1,6 @@
 # Plugin developer wiki
 
-Build, test and publish plugins for GoControlPanel using the TypeScript plugin SDK.
+Build, test and publish plugins for TMControlPanel using the TypeScript plugin SDK.
 Plugin source, templates, config forms and immutable packages live in this registry.
 The panel provides the SDK, sandbox runtime and management UI.
 
