@@ -54,7 +54,7 @@ plugin stops. Use `stop` for additional plugin-specific cleanup if needed.
 panel internals; the panel does not execute a plugin's React components.
 
 For a richer example, read
-[`plugins/hello/src/index.ts`](https://github.com/MRegterschot/tmcontrolpanel-plugins/blob/main/plugins/hello/src/index.ts)
+[`plugins/hello/src/index.ts`](https://github.com/tmservers/tmcontrolpanel-plugins/blob/main/plugins/hello/src/index.ts)
 and its template. `ctx.on("playerConnect", ...)` handles connections,
 `ctx.action("wave", ...)` handles the template's `{{action "wave"}}`, and
 `ctx.storage.get/set` persists values within the plugin's server-specific namespace.

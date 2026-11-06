@@ -3,7 +3,7 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 
-const remote = "git@github.com:MRegterschot/tmcontrolpanel-plugins.wiki.git";
+const remote = "git@github.com:tmservers/tmcontrolpanel-plugins.wiki.git";
 const pages = resolve("wiki");
 const probe = spawnSync("git", ["ls-remote", remote], { encoding: "utf8" });
 if (probe.status !== 0) {
@@ -12,7 +12,7 @@ if (probe.status !== 0) {
   );
   console.error("If this is a new wiki, create its first page at:");
   console.error(
-    "https://github.com/MRegterschot/tmcontrolpanel-plugins/wiki/_new",
+    "https://github.com/tmservers/tmcontrolpanel-plugins/wiki/_new",
   );
   console.error(
     "Then rerun bun run wiki:publish. Prepared pages remain in wiki/.",
@@ -47,7 +47,7 @@ try {
     ]);
     git(["push", "origin", "HEAD"]);
     console.log(
-      "Published https://github.com/MRegterschot/tmcontrolpanel-plugins/wiki",
+      "Published https://github.com/tmservers/tmcontrolpanel-plugins/wiki",
     );
   }
 } finally {

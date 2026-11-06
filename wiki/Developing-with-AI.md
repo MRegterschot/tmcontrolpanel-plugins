@@ -6,11 +6,11 @@ compatible SDK checkout so it can verify its work against real code.
 
 ## Prepare the workspace
 
-Follow [Getting started](https://github.com/MRegterschot/tmcontrolpanel-plugins/wiki/Getting-Started)
+Follow [Getting started](https://github.com/tmservers/tmcontrolpanel-plugins/wiki/Getting-Started)
 to set up `.controlpanel`, link dependencies and check the Hello example. Open
 the registry root as the assistant's workspace.
 
-The root [AGENTS.md](https://github.com/MRegterschot/tmcontrolpanel-plugins/blob/main/AGENTS.md)
+The root [AGENTS.md](https://github.com/tmservers/tmcontrolpanel-plugins/blob/main/AGENTS.md)
 contains repository instructions for coding agents: where to find APIs, how to
 build and test, and how to preserve immutable releases. Ask your assistant to read
 it before making changes. If your tool does not load `AGENTS.md` automatically,
@@ -80,7 +80,7 @@ version; private development can use the targeted checks above first.
 Upload the zip on the panel's Plugins page and exercise it on a test server.
 For a first-party plugin, use the local registry and Update flow instead of a
 private upload, as explained in
-[Developing and testing](https://github.com/MRegterschot/tmcontrolpanel-plugins/wiki/Developing-and-Testing).
+[Developing and testing](https://github.com/tmservers/tmcontrolpanel-plugins/wiki/Developing-and-Testing).
 Check commands, config changes, enabling/disabling and any UI in game. Sandbox
 tests cannot establish that the final layout looks right or gameplay feels right.
 
@@ -113,6 +113,6 @@ and in-game checks still needed. Preserve every existing version artifact.
 
 The selected publish build writes local files. Marketplace publication happens
 when the registry PR is merged to `main`; it does not happen when the AI finishes
-editing. Follow [Publishing](https://github.com/MRegterschot/tmcontrolpanel-plugins/wiki/Publishing)
+editing. Follow [Publishing](https://github.com/tmservers/tmcontrolpanel-plugins/wiki/Publishing)
 to review and submit the source, tests and new version artifacts. Existing installs
 remain pinned until an admin updates them.

@@ -7,9 +7,9 @@ There is no separate SDK service, and the SDK is not currently published on npm.
 ## Prepare a registry checkout
 
 ```bash
-git clone https://github.com/MRegterschot/tmcontrolpanel-plugins.git
+git clone https://github.com/tmservers/tmcontrolpanel-plugins.git
 cd tmcontrolpanel-plugins
-git clone --branch refactor/monorepo-gbx-service https://github.com/MRegterschot/gocontrolpanel.git .controlpanel
+git clone --branch master https://github.com/tmservers/tmcontrolpanel.git .controlpanel
 cd .controlpanel
 bun install --frozen-lockfile
 DB=mysql bun run generate

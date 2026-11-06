@@ -1,6 +1,6 @@
 # TMControlPanel plugins
 
-The plugin marketplace of [TMControlPanel](https://github.com/MRegterschot/gocontrolpanel). Every panel,
+The plugin marketplace of [TMControlPanel](https://github.com/tmservers/tmcontrolpanel). Every panel,
 self-hosted ones included, reads the index published from this repository and installs plugins from it.
 
 - **Panels read** `https://plugins.tmcontrolpanel.com/index.json`, built by the
@@ -26,14 +26,14 @@ The [developer guide](wiki/Home.md) covers:
 
 AI coding assistants should read [AGENTS.md](AGENTS.md) before changing plugins.
 
-The same pages are maintained for the [GitHub wiki](https://github.com/MRegterschot/tmcontrolpanel-plugins/wiki).
+The same pages are maintained for the [GitHub wiki](https://github.com/tmservers/tmcontrolpanel-plugins/wiki).
 Edit `wiki/` and run `bun run wiki:publish` to publish them. A new GitHub wiki needs
 its first page created on the website before that command can clone and push it.
 
 ## Publishing a plugin
 
 1. Build the package with the SDK (see the
-   [plugin SDK guide](https://github.com/MRegterschot/gocontrolpanel/blob/master/docs/plugin-sdk.md)):
+   [plugin SDK guide](https://github.com/tmservers/tmcontrolpanel/blob/master/docs/plugin-sdk.md)):
 
    ```bash
    tmcp-plugin pack            # dist/<slug>-<version>.zip, prints its sha256

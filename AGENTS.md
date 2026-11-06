@@ -26,7 +26,7 @@ checkout-backed CLI. Tooling dependencies come from `.controlpanel`; do not
 install an assumed npm SDK or add a separate dependency tree for a source plugin.
 
 If `.controlpanel` is missing, clone it with
-`git clone --branch release https://github.com/MRegterschot/gocontrolpanel.git .controlpanel`
+`git clone --branch master https://github.com/tmservers/tmcontrolpanel.git .controlpanel`
 or link an existing compatible checkout. CI uses `TMCONTROLPANEL_REF`, defaulting
 to `release`. Preserve an existing checkout's branch and local changes.
 
